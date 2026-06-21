@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Resumen from './components/Resumen'
 import InyeccionSQL from './components/InyeccionSQL'
+import XSS from './components/XSS'
 
 /* Strings completos — Tailwind 4 no detecta clases dinámicas (ver CLAUDE.md) */
 const COLOR_MAP = {
@@ -24,7 +25,7 @@ const secciones = [
   // ── Informe A · Análisis de Vulnerabilidades ──
   { id: 'resumen',     label: '01 · Resumen',              componente: Resumen, completada: true,  color: 'blue'    },
   { id: 'sqli',        label: '02 · Inyección SQL',        componente: InyeccionSQL, completada: true, color: 'red'     },
-  { id: 'xss',         label: '03 · XSS',                  componente: null,    completada: false, color: 'amber'   },
+  { id: 'xss',         label: '03 · XSS',                  componente: XSS,     completada: true,  color: 'amber'   },
   { id: 'comandos',    label: '04 · Inyección de comandos', componente: null,   completada: false, color: 'purple'  },
   // ── Informe B · Matriz de Riesgo ──
   { id: 'activos',     label: '05 · Activos',              componente: null,    completada: false, color: 'emerald' },
