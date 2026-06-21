@@ -1,5 +1,32 @@
-import { Page, PageHeader, Card, H3, Code, Severidad } from './ui'
+import { Page, PageHeader, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
 import comandosImg from '../../docs_munjhe/img_munjhe/comandos_munjhe.png'
+
+/* Terminal simulada para mostrar la salida del servidor */
+function Terminal({ children }) {
+  return (
+    <div className="overflow-hidden rounded-lg border border-gray-700 bg-gray-900 shadow-sm">
+      <div className="flex items-center gap-1.5 border-b border-gray-700 bg-gray-800 px-3 py-1.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+        <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+        <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+        <span className="ml-2 text-xs text-gray-400">servidor del hotel</span>
+      </div>
+      <pre className="overflow-x-auto whitespace-pre-wrap break-words px-4 py-3 text-xs leading-relaxed text-green-300">
+        {children}
+      </pre>
+    </div>
+  )
+}
+
+const SALIDA_PING = `PING 127.0.0.1: 56 data bytes
+64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=0.04 ms
+--- 127.0.0.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss`
+
+const SALIDA_PASSWD = `root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+mysql:x:101:101:MySQL Server:/nonexistent:/bin/false`
 
 /*
  * 04 · Inyección de comandos — Hotel Costa Brava
@@ -45,6 +72,28 @@ export default function Comandos() {
           <strong> cualquier</strong> comando: leer otros archivos, borrar datos o instalar software.
         </p>
       </Card>
+
+      <Demo
+        etiquetaCampo="Dirección IP"
+        normal={{
+          entrada: '127.0.0.1',
+          codigo: 'ping -c 4 127.0.0.1',
+          resultado: <Terminal>{SALIDA_PING}</Terminal>,
+        }}
+        ataque={{
+          entrada: '127.0.0.1; cat /etc/passwd',
+          codigo: 'ping -c 4 127.0.0.1; cat /etc/passwd',
+          resaltar: '; cat /etc/passwd',
+          resultado: (
+            <>
+              <Terminal>{`${SALIDA_PING}\n\n${SALIDA_PASSWD}`}</Terminal>
+              <p className="mt-2 text-sm font-semibold text-red-700">
+                ⚠️ El servidor revela sus cuentas internas: jamás debería verse desde el portal.
+              </p>
+            </>
+          ),
+        }}
+      />
 
       <H3>Por qué funciona</H3>
       <p className="text-gray-600 mb-3">
@@ -110,6 +159,27 @@ ping -c 4 127.0.0.1; cat /etc/passwd  # el ; encadena DOS comandos`}</Code></div
           </ul>
         </Card>
       </div>
+
+      <Autocomprobacion
+        pregunta="¿Por qué la inyección de comandos es la más grave de las tres (CVSS 9.8)?"
+        opciones={[
+          {
+            texto: 'Permite ejecutar cualquier orden en el servidor: control total.',
+            correcta: true,
+            explicacion: '✔️ Correcto. Con control del servidor un atacante accede a todos los datos y sistemas, borra o cifra archivos y tumba el servicio.',
+          },
+          {
+            texto: 'Solo deja leer un archivo del sistema (/etc/passwd).',
+            correcta: false,
+            explicacion: '✖️ Leer /etc/passwd es solo la demostración; el mismo fallo permite ejecutar cualquier comando.',
+          },
+          {
+            texto: 'Porque necesita que la víctima haga clic en un enlace.',
+            correcta: false,
+            explicacion: '✖️ Eso describe al XSS. La inyección de comandos no requiere interacción de la víctima.',
+          },
+        ]}
+      />
     </Page>
   )
 }
