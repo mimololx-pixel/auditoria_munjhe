@@ -42,6 +42,12 @@ const BITACORA = [
     acepte: 'La automatización de commits y push.',
     corregi: 'El nombre tenía ñ (muñjhe), que GitHub/Vercel no aceptan; se unificó a auditoria_munjhe.',
   },
+  {
+    n: '7', titulo: 'Presentación interactiva del Informe A',
+    prompt: 'Haz la Parte A más dinámica y didáctica: demo entrada normal vs. del atacante, medidor visual del CVSS y una mini autocomprobación por ataque.',
+    acepte: 'La demo "Pruébalo tú" que transforma la consulta/HTML/comando en vivo, el medidor 0–10 a color y el quiz con feedback.',
+    corregi: 'Exigí verificar antes que los .md estuvieran completos contra la rúbrica, y que la interactividad fuera solo presentación: no se movió contenido evaluable a React (git status confirmó que solo cambiaron los .jsx).',
+  },
 ]
 
 export default function Prompts() {
@@ -95,6 +101,7 @@ export default function Prompts() {
         <li><strong>Riesgo de código vulnerable:</strong> la IA tiende a concatenar la entrada al conectar una base de datos; hay que pedir explícitamente consultas parametrizadas y validación.</li>
         <li><strong>Prompts dirigidos &gt; genéricos:</strong> nombrar la empresa, el payload y la defensa esperada dio respuestas mucho más útiles que un "hazme el informe".</li>
         <li><strong>Usar la IA como agente</strong> (que ejecuta y verifica) fue más productivo que como simple chatbot, siempre validando cada paso.</li>
+        <li><strong>El formato de entrega importa tanto como el contenido:</strong> dirigí a la IA para contrastar cada .md con la rúbrica oficial y confirmar que el contenido evaluable vive en docs_munjhe/ (no en los componentes React), evitando el error de entregas anteriores.</li>
       </ul>
     </Page>
   )

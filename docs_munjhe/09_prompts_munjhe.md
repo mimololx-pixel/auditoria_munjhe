@@ -66,6 +66,19 @@ la IA es una herramienta de apoyo.
 - **Corregí / dirigí:** el nombre tenía la **`ñ`** (`muñjhe`), que GitHub/Vercel no aceptan;
   se unificó todo a **`auditoria_munjhe`** (ñ → n) para cumplir la nomenclatura.
 
+### 7. Presentación interactiva del Informe A
+- **Prompt:** "Haz la Parte A más **dinámica y didáctica** para usuarios comunes: una demo
+  donde se alterne entrada normal vs. del atacante, un medidor visual del CVSS y una mini
+  autocomprobación al final de cada ataque."
+- **Acepté:** la demo "Pruébalo tú" (transforma la consulta/HTML/comando en vivo y anima el
+  resultado), el medidor 0–10 a color y el quiz con feedback inmediato.
+- **Corregí / dirigí:** dos cosas. (1) Antes de tocar nada, exigí **verificar que los `.md`
+  evaluables estuvieran completos** comparándolos contra `instrucciones_evaluacion03.pdf`
+  (lección del trabajo anterior: el profesor evalúa los `.md`, no los `.jsx`). (2) Que la
+  interactividad fuera **solo presentación**: los widgets re-presentan datos que ya están en
+  los `.md` y **no se movió ningún contenido evaluable** a React (`git status` confirmó que
+  solo cambiaron los `.jsx`).
+
 ---
 
 ## Reflexión final
@@ -80,3 +93,6 @@ la IA es una herramienta de apoyo.
   defensa esperada produjo respuestas mucho más útiles que un "hazme el informe".
 - **Usar la IA como agente** (que ejecuta y verifica) fue más productivo que como simple
   chatbot, siempre que yo revisara cada paso y tomara las decisiones finales.
+- **El formato de entrega importa tanto como el contenido:** dirigí a la IA para que
+  contrastara cada `.md` con la rúbrica oficial y confirmara que el contenido evaluable vive
+  en `docs_munjhe/` (no en los componentes React), evitando el error de entregas anteriores.
