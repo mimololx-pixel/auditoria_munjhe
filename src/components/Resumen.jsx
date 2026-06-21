@@ -1,4 +1,5 @@
-import { Page, PageHeader, Card, H3 } from './ui'
+import { Building2 } from 'lucide-react'
+import { Page, SectionHero, NavPie, Card, H3 } from './ui'
 
 /*
  * 01 · Resumen — Hotel Costa Brava
@@ -7,10 +8,10 @@ import { Page, PageHeader, Card, H3 } from './ui'
 export default function Resumen() {
   return (
     <Page>
-      <PageHeader eyebrow="Informe A · Análisis de Vulnerabilidades" title="Resumen — Hotel Costa Brava">
+      <SectionHero eyebrow="Informe A · Análisis de Vulnerabilidades" title="Resumen — Hotel Costa Brava" Icon={Building2} color="blue">
         Presentación de la empresa auditada y de su portal de clientes, en lenguaje claro para
         cualquier persona.
-      </PageHeader>
+      </SectionHero>
 
       <H3>La empresa</H3>
       <p className="text-gray-600 mb-4">
@@ -128,6 +129,8 @@ export default function Resumen() {
         siguientes secciones no son detalles técnicos menores: son <strong>riesgos reales para el
         negocio</strong>, su reputación y sus huéspedes.
       </p>
+
+      <NavPie id="resumen" />
     </Page>
   )
 }

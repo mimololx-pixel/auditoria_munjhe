@@ -1,4 +1,5 @@
-import { Page, PageHeader, Card, H3 } from './ui'
+import { Bot } from 'lucide-react'
+import { Page, SectionHero, NavPie, Card, H3 } from './ui'
 
 /*
  * 09 · Bitácora de uso de IA — Hotel Costa Brava
@@ -53,10 +54,10 @@ const BITACORA = [
 export default function Prompts() {
   return (
     <Page>
-      <PageHeader eyebrow="Transversal" title="Bitácora de uso de IA">
+      <SectionHero eyebrow="Transversal" title="Bitácora de uso de IA" Icon={Bot} color="gray">
         Cómo se usó la inteligencia artificial en este proyecto: qué se le pidió, qué se aceptó
         y qué se corrigió.
-      </PageHeader>
+      </SectionHero>
 
       <Card className="mb-8 bg-teal-50 border-teal-200">
         <p className="font-semibold text-teal-900 mb-2">Herramienta y modalidad</p>
@@ -103,6 +104,8 @@ export default function Prompts() {
         <li><strong>Usar la IA como agente</strong> (que ejecuta y verifica) fue más productivo que como simple chatbot, siempre validando cada paso.</li>
         <li><strong>El formato de entrega importa tanto como el contenido:</strong> dirigí a la IA para contrastar cada .md con la rúbrica oficial y confirmar que el contenido evaluable vive en docs_munjhe/ (no en los componentes React), evitando el error de entregas anteriores.</li>
       </ul>
+
+      <NavPie id="prompts" />
     </Page>
   )
 }

@@ -1,4 +1,5 @@
-import { Page, PageHeader, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
+import { MessageSquareCode } from 'lucide-react'
+import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
 import xssImg from '../../docs_munjhe/img_munjhe/xss_munjhe.png'
 import xssPopupImg from '../../docs_munjhe/img_munjhe/xss_popup_munjhe.png'
 
@@ -39,10 +40,10 @@ function Navegador({ children, popup }) {
 export default function XSS() {
   return (
     <Page>
-      <PageHeader eyebrow="Informe A · Ataque 2 de 3" title="XSS (Cross-Site Scripting)">
+      <SectionHero eyebrow="Informe A · Ataque 2 de 3" title="XSS (Cross-Site Scripting)" Icon={MessageSquareCode} color="amber">
         Cómo un atacante puede <strong>ejecutar código en el navegador de un huésped</strong> y
         robarle la sesión dentro del propio portal del hotel.
-      </PageHeader>
+      </SectionHero>
 
       <H3>Qué es (en simple)</H3>
       <p className="text-gray-600 mb-4">
@@ -190,6 +191,8 @@ export default function XSS() {
           },
         ]}
       />
+
+      <NavPie id="xss" />
     </Page>
   )
 }

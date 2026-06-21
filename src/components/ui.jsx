@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { NavContext, ORDEN } from '../nav'
 
 /*
  * Módulo de UI compartido — tema claro y amigable.
@@ -48,6 +50,74 @@ export function PageHeader({ eyebrow, title, children }) {
 /* Encabezado de subsección */
 export function H3({ children }) {
   return <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-2">{children}</h3>
+}
+
+/*
+ * Cabecera de sección con "cara" reconocible: banda de color suave + icono.
+ * Strings de color completos (Tailwind v4 no detecta clases dinámicas, ver CLAUDE.md).
+ */
+const HERO_COLOR = {
+  blue: 'bg-blue-50 text-blue-700',
+  red: 'bg-red-50 text-red-700',
+  amber: 'bg-amber-50 text-amber-700',
+  purple: 'bg-purple-50 text-purple-700',
+  gray: 'bg-gray-100 text-gray-700',
+  teal: 'bg-teal-50 text-teal-700',
+}
+
+export function SectionHero({ eyebrow, title, Icon, color = 'teal', children }) {
+  const cls = HERO_COLOR[color] ?? HERO_COLOR.teal
+  return (
+    <header className="mb-8">
+      <div className={`flex items-start gap-4 rounded-2xl p-5 ${cls}`}>
+        {Icon && (
+          <span className="shrink-0 rounded-xl bg-white/70 p-3">
+            <Icon size={28} />
+          </span>
+        )}
+        <div>
+          {eyebrow && <p className="mb-1 text-xs font-semibold uppercase tracking-widest opacity-80">{eyebrow}</p>}
+          <h2 className="text-3xl font-bold leading-tight">{title}</h2>
+        </div>
+      </div>
+      {children && <p className="mt-4 text-lg leading-relaxed text-gray-600">{children}</p>}
+    </header>
+  )
+}
+
+/* Navegación guiada al pie de cada sección: Anterior / Siguiente */
+export function NavPie({ id }) {
+  const i = ORDEN.findIndex((s) => s.id === id)
+  const prev = i > 0 ? ORDEN[i - 1] : null
+  const next = i >= 0 && i < ORDEN.length - 1 ? ORDEN[i + 1] : null
+  return (
+    <nav className="mt-12 flex items-center justify-between gap-3 border-t border-gray-200 pt-6">
+      {prev ? (
+        <button
+          onClick={() => NavContext.go?.(prev.id)}
+          className="inline-flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:border-teal-400 hover:text-teal-700"
+        >
+          <ArrowLeft size={16} />
+          <span className="hidden sm:inline">{prev.label}</span>
+          <span className="sm:hidden">Anterior</span>
+        </button>
+      ) : (
+        <span />
+      )}
+      {next ? (
+        <button
+          onClick={() => NavContext.go?.(next.id)}
+          className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700"
+        >
+          <span className="hidden sm:inline">{next.label}</span>
+          <span className="sm:hidden">Siguiente</span>
+          <ArrowRight size={16} />
+        </button>
+      ) : (
+        <span />
+      )}
+    </nav>
+  )
 }
 
 /* Bloque de código/payload */

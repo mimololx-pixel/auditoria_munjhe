@@ -1,4 +1,5 @@
-import { Page, PageHeader, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
+import { Database } from 'lucide-react'
+import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
 import sqliImg from '../../docs_munjhe/img_munjhe/sqli_munjhe.png'
 
 /* Usuarios que devuelve DVWA (presenta el resultado del .md, no añade datos evaluables) */
@@ -23,10 +24,10 @@ function ListaUsuarios({ filas }) {
 export default function InyeccionSQL() {
   return (
     <Page>
-      <PageHeader eyebrow="Informe A · Ataque 1 de 3" title="Inyección SQL">
+      <SectionHero eyebrow="Informe A · Ataque 1 de 3" title="Inyección SQL" Icon={Database} color="red">
         Cómo un atacante puede <strong>extraer toda la base de datos de clientes</strong> del
         portal con solo escribir un texto en un formulario.
-      </PageHeader>
+      </SectionHero>
 
       <H3>Qué es (en simple)</H3>
       <p className="text-gray-600 mb-4">
@@ -183,6 +184,8 @@ $stmt->bind_param("i", $id);   // "i" = se trata como ENTERO`}</Code>
           },
         ]}
       />
+
+      <NavPie id="sqli" />
     </Page>
   )
 }
