@@ -1,41 +1,18 @@
-import { motion } from 'framer-motion'
+import { Page, PageHeader, Card, H3 } from './ui'
 
 /*
  * 01 · Resumen — Hotel Costa Brava
  * Espejo de docs_munjhe/01_resumen_munjhe.md (la fuente evaluable — ver CLAUDE.md).
- * Este componente solo PRESENTA ese contenido de forma navegable.
  */
-
-function Card({ children, className = '' }) {
-  return (
-    <div className={`rounded-xl border border-gray-200 bg-white p-5 shadow-sm ${className}`}>
-      {children}
-    </div>
-  )
-}
-
 export default function Resumen() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="max-w-4xl mx-auto px-6 py-12"
-    >
-      {/* Encabezado */}
-      <p className="text-xs uppercase tracking-widest text-blue-500 mb-2">
-        Informe A · Análisis de Vulnerabilidades
-      </p>
-      <h2 className="text-3xl font-bold text-gray-800 mb-3">
-        Resumen — Hotel Costa Brava
-      </h2>
-      <p className="text-gray-600 mb-8">
-        Presentación de la empresa auditada y de su portal de clientes. Escrita para que
-        <strong> cualquier persona</strong> entienda qué se hizo y por qué importa.
-      </p>
+    <Page>
+      <PageHeader eyebrow="Informe A · Análisis de Vulnerabilidades" title="Resumen — Hotel Costa Brava">
+        Presentación de la empresa auditada y de su portal de clientes, en lenguaje claro para
+        cualquier persona.
+      </PageHeader>
 
-      {/* La empresa */}
-      <h3 className="text-xl font-semibold text-gray-800 mb-3">La empresa</h3>
+      <H3>La empresa</H3>
       <p className="text-gray-600 mb-4">
         <strong>Hotel Costa Brava</strong> es un hotel de la costa de la Región de Valparaíso,
         de tamaño mediano, orientado a turismo nacional e internacional. Como cualquier hotel
@@ -63,13 +40,10 @@ export default function Resumen() {
         reales del hotel.
       </p>
 
-      {/* El portal */}
-      <h3 className="text-xl font-semibold text-gray-800 mb-3">
-        El portal de clientes <span className="text-gray-400 font-normal text-base">(lo que auditamos)</span>
-      </h3>
+      <H3>El portal de clientes <span className="text-gray-400 font-normal text-base">(lo que auditamos)</span></H3>
       <p className="text-gray-600 mb-4">
-        El portal de clientes es el sitio donde los huéspedes crean su cuenta, buscan y
-        reservan habitaciones, pagan en línea y consultan su historial. Para funcionar,
+        El portal de clientes es el sitio donde los huéspedes crean su cuenta, buscan y reservan
+        habitaciones, pagan en línea y consultan su historial. Para funcionar,
         <strong> guarda y consulta información en una base de datos</strong>: nombres, documentos
         de identidad (RUT/pasaporte), correos, teléfonos y datos de pago.
       </p>
@@ -88,8 +62,7 @@ export default function Resumen() {
         </ul>
       </Card>
 
-      {/* Por qué la auditoría */}
-      <h3 className="text-xl font-semibold text-gray-800 mb-3">Por qué esta auditoría</h3>
+      <H3>Por qué esta auditoría</H3>
       <p className="text-gray-600 mb-4">
         Una auditoría de seguridad revisa un sistema <em>como lo haría un atacante</em>, pero con
         <strong> permiso</strong> y con un fin <strong>defensivo</strong>: encontrar las fallas
@@ -109,8 +82,7 @@ export default function Resumen() {
         ))}
       </div>
 
-      {/* Alcance */}
-      <h3 className="text-xl font-semibold text-gray-800 mb-3">Alcance y método</h3>
+      <H3>Alcance y método</H3>
       <p className="text-gray-600 mb-4">
         La auditoría se realiza sobre <strong>DVWA</strong> (<em>Damn Vulnerable Web Application</em>),
         una aplicación deliberadamente vulnerable que usamos como "maqueta" del portal del hotel,
@@ -139,7 +111,6 @@ export default function Resumen() {
         </table>
       </Card>
 
-      {/* Marco legal */}
       <Card className="mb-8 bg-red-50 border-red-200">
         <p className="text-sm font-semibold text-red-900 mb-1">Marco ético-legal</p>
         <p className="text-sm text-red-900">
@@ -150,14 +121,13 @@ export default function Resumen() {
         </p>
       </Card>
 
-      {/* Conclusión */}
-      <h3 className="text-xl font-semibold text-gray-800 mb-3">En resumen</h3>
+      <H3>En resumen</H3>
       <p className="text-gray-600">
         Hotel Costa Brava depende de su portal de clientes para operar, y ese portal concentra
         datos personales y financieros muy sensibles. Por eso, las fallas que se demuestran en las
         siguientes secciones no son detalles técnicos menores: son <strong>riesgos reales para el
         negocio</strong>, su reputación y sus huéspedes.
       </p>
-    </motion.div>
+    </Page>
   )
 }

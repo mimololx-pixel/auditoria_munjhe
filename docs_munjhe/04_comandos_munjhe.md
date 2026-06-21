@@ -80,6 +80,7 @@ Calculado con la [calculadora oficial FIRST](https://www.first.org/cvss/calculat
 
 **Vector:** `CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H`
 **Puntaje base: 9.8 — Severidad CRÍTICA.**
+**En lenguaje simple: 🔴 Muy grave — corregir de inmediato.**
 
 > Es la vulnerabilidad más grave de las tres: otorga **control total del servidor**
 > (ejecución remota de comandos), lo que abre la puerta a todo lo demás.

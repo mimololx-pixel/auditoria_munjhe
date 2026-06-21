@@ -83,6 +83,7 @@ Calculado con la [calculadora oficial FIRST](https://www.first.org/cvss/calculat
 
 **Vector:** `CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N`
 **Puntaje base: 7.5 — Severidad ALTA.**
+**En lenguaje simple: 🟠 Grave — corregir pronto.**
 
 > ⚠️ El ataque demostrado solo **lee** datos. Con técnicas adicionales de inyección, la misma
 > falla suele permitir **modificar o borrar** registros (Integridad y Disponibilidad altas),

@@ -83,6 +83,7 @@ Calculado con la [calculadora oficial FIRST](https://www.first.org/cvss/calculat
 
 **Vector:** `CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N`
 **Puntaje base: 6.1 — Severidad MEDIA.**
+**En lenguaje simple: 🟡 Moderada — planificar corrección.**
 
 ---
 
