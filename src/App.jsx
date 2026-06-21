@@ -140,9 +140,11 @@ function App() {
     NavContext.go = (id) => { setActiva(id); setMenuAbierto(false) }
   }, [])
 
-  /* Al cambiar de sección, volver al inicio de la página para leer de arriba hacia abajo */
+  /* Al cambiar de sección, volver al inicio de la página para leer de arriba hacia abajo.
+     El scroll real lo hace la ventana (el layout usa min-h-screen, no altura fija). */
   useEffect(() => {
-    mainRef.current?.scrollTo({ top: 0 })
+    window.scrollTo(0, 0)
+    mainRef.current?.scrollTo({ top: 0 }) // por robustez si el scroller cambia a futuro
   }, [activa])
 
   const seccionActual = items.find((s) => s.id === activa)
