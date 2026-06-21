@@ -1,6 +1,36 @@
-import { Page, PageHeader, Card, H3, Code, Severidad } from './ui'
+import { Page, PageHeader, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
 import xssImg from '../../docs_munjhe/img_munjhe/xss_munjhe.png'
 import xssPopupImg from '../../docs_munjhe/img_munjhe/xss_popup_munjhe.png'
+
+/* "Ventana del navegador" simulada para mostrar texto vs. código ejecutado */
+function Navegador({ children, popup }) {
+  return (
+    <div className="overflow-hidden rounded-lg border border-gray-300 bg-white shadow-sm">
+      <div className="flex items-center gap-1.5 border-b border-gray-200 bg-gray-100 px-3 py-1.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+        <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+        <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+        <span className="ml-2 text-xs text-gray-400">portal.hotelcostabrava.cl</span>
+      </div>
+      <div className="relative p-5">
+        {children}
+        {popup && (
+          <div className="absolute inset-0 flex items-start justify-center bg-black/20 pt-4">
+            <div className="w-56 rounded-lg border border-gray-300 bg-white shadow-xl">
+              <p className="border-b border-gray-200 px-3 py-1.5 text-xs text-gray-500">
+                portal.hotelcostabrava.cl dice
+              </p>
+              <p className="px-3 py-3 text-sm font-semibold text-gray-800">XSS</p>
+              <div className="flex justify-end px-3 pb-2">
+                <span className="rounded bg-blue-500 px-3 py-1 text-xs font-semibold text-white">Aceptar</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
 
 /*
  * 03 · XSS (Cross-Site Scripting) — Hotel Costa Brava
@@ -52,6 +82,29 @@ export default function XSS() {
           navegador <strong>interpretó</strong> la etiqueta en vez de mostrarla: el código se ejecutó.
         </p>
       </Card>
+
+      <Demo
+        etiquetaCampo="Nombre"
+        normal={{
+          entrada: 'Pedro',
+          codigo: '<p>Hola Pedro</p>',
+          resultado: (
+            <Navegador>
+              <p className="text-gray-800">Hola Pedro</p>
+            </Navegador>
+          ),
+        }}
+        ataque={{
+          entrada: "<script>alert('XSS')</script>",
+          codigo: "<p>Hola <script>alert('XSS')</script></p>",
+          resaltar: "<script>alert('XSS')</script>",
+          resultado: (
+            <Navegador popup>
+              <p className="text-gray-800">Hola </p>
+            </Navegador>
+          ),
+        }}
+      />
 
       <H3>Por qué funciona</H3>
       <p className="text-gray-600 mb-3">
@@ -116,6 +169,27 @@ export default function XSS() {
           </ul>
         </Card>
       </div>
+
+      <Autocomprobacion
+        pregunta="Si la página no escapa la salida, ¿qué hace el navegador con un <script> que escribió el usuario?"
+        opciones={[
+          {
+            texto: 'Lo ejecuta como si fuera código de la propia página.',
+            correcta: true,
+            explicacion: '✔️ Correcto. El navegador no distingue el texto del usuario del código del sitio: ejecuta el script.',
+          },
+          {
+            texto: 'Lo muestra como texto, tal cual se escribió.',
+            correcta: false,
+            explicacion: '✖️ Eso ocurriría solo si la página escapara la salida (la defensa #1). Sin escape, lo ejecuta.',
+          },
+          {
+            texto: 'Lo ignora por completo.',
+            correcta: false,
+            explicacion: '✖️ No. Sin protección, el navegador interpreta y ejecuta la etiqueta.',
+          },
+        ]}
+      />
     </Page>
   )
 }
