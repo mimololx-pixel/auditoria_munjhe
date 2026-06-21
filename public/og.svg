@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f0fdfa"/>
+  <rect x="0" y="0" width="1200" height="14" fill="#0d9488"/>
+  <circle cx="1040" cy="120" r="90" fill="#ccfbf1"/>
+  <circle cx="150" cy="540" r="60" fill="#ccfbf1"/>
+
+  <!-- Texto -->
+  <text x="90" y="210" font-family="'Segoe UI', Arial, sans-serif" font-size="34" font-weight="700" fill="#0d9488" letter-spacing="3">AUDITORÍA DE SEGURIDAD WEB</text>
+  <text x="86" y="300" font-family="'Segoe UI', Arial, sans-serif" font-size="78" font-weight="800" fill="#1f2937">Hotel Costa Brava</text>
+  <text x="90" y="362" font-family="'Segoe UI', Arial, sans-serif" font-size="32" font-weight="400" fill="#475569">Riesgos del portal de clientes, explicados en lenguaje simple.</text>
+
+  <!-- Chips de los 3 riesgos -->
+  <g font-family="'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700">
+    <rect x="90" y="430" width="250" height="64" rx="32" fill="#fff7ed" stroke="#fdba74"/>
+    <text x="120" y="470" fill="#c2410c">Inyección SQL · 7.5</text>
+    <rect x="360" y="430" width="200" height="64" rx="32" fill="#fefce8" stroke="#fde047"/>
+    <text x="390" y="470" fill="#a16207">XSS · 6.1</text>
+    <rect x="580" y="430" width="300" height="64" rx="32" fill="#fef2f2" stroke="#fca5a5"/>
+    <text x="610" y="470" fill="#b91c1c">Comandos · 9.8</text>
+  </g>
+
+  <!-- Escudo -->
+  <g transform="translate(965,250)">
+    <path d="M70 6 C70 6 110 22 140 22 C140 22 143 96 110 134 C92 156 73 165 70 167 C67 165 48 156 30 134 C-3 96 0 22 0 22 C30 22 70 6 70 6 Z" fill="#f59e0b"/>
+    <path d="M44 82 L62 100 L98 60" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
