@@ -7,6 +7,7 @@ import XSS from './components/XSS'
 import Comandos from './components/Comandos'
 import Prompts from './components/Prompts'
 import Glosario from './components/Glosario'
+import { ProgresoLectura, BotonSubir } from './components/ui'
 import { NavContext } from './nav'
 
 /* Color del punto por sección — strings completos (Tailwind 4 no detecta clases dinámicas, ver CLAUDE.md) */
@@ -152,6 +153,8 @@ function App() {
 
   return (
     <div className="flex min-h-screen bg-slate-50 text-gray-800">
+      <ProgresoLectura />
+      <BotonSubir />
       {/* Sidebar desktop */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r border-gray-200 shrink-0">
         <SidebarHeader />
