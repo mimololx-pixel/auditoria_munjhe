@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react'
 import { NavContext, ORDEN } from '../nav'
 
 /*
@@ -117,6 +117,86 @@ export function NavPie({ id }) {
         <span />
       )}
     </nav>
+  )
+}
+
+/* Comparativa de gravedad: una barra por ataque, color según severidad */
+export function ComparativaCVSS({ datos }) {
+  return (
+    <div className="space-y-3">
+      {datos.map(({ label, score }) => {
+        const n = nivelDe(score)
+        const pct = Math.min(100, Math.max(0, (score / 10) * 100))
+        return (
+          <div key={label}>
+            <div className="mb-1 flex items-center justify-between text-sm">
+              <span className="font-medium text-gray-700">{label}</span>
+              <span className="text-gray-500">{n.emoji} {score} · {n.etiqueta}</span>
+            </div>
+            <div className="h-3 w-full overflow-hidden rounded-full bg-gray-100">
+              <motion.div
+                className={`h-3 rounded-full ${n.barra}`}
+                initial={{ width: 0 }}
+                whileInView={{ width: `${pct}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+              />
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+/* Barra de progreso de lectura fija arriba (lee el scroll de la ventana) */
+export function ProgresoLectura() {
+  const [pct, setPct] = useState(0)
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement
+      const max = h.scrollHeight - h.clientHeight
+      setPct(max > 0 ? (h.scrollTop / max) * 100 : 0)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+  return (
+    <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent">
+      <div className="h-full bg-teal-500 transition-[width] duration-150" style={{ width: `${pct}%` }} />
+    </div>
+  )
+}
+
+/* Botón flotante para volver arriba (aparece tras bajar un poco) */
+export function BotonSubir() {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 400)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Volver arriba"
+          className="fixed bottom-5 right-5 z-50 rounded-full bg-teal-600 p-3 text-white shadow-lg transition hover:bg-teal-700"
+        >
+          <ArrowUp size={20} />
+        </motion.button>
+      )}
+    </AnimatePresence>
   )
 }
 

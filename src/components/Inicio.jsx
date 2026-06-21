@@ -1,4 +1,4 @@
-import { Page, Card } from './ui'
+import { Page, Card, ComparativaCVSS } from './ui'
 import { NavContext } from '../nav'
 import { HeroHotelSeguro } from './ilustraciones'
 import {
@@ -101,6 +101,22 @@ export default function Inicio() {
           </button>
         ))}
       </div>
+
+      {/* Comparativa de gravedad */}
+      <h3 className="text-xl font-semibold text-gray-800 mb-3">Comparación de gravedad</h3>
+      <Card className="mb-10">
+        <p className="text-sm text-gray-600 mb-4">
+          Qué tan peligroso es cada riesgo, en una escala internacional del 0 al 10 (CVSS).
+          Mientras más larga y roja la barra, más urgente es corregirlo.
+        </p>
+        <ComparativaCVSS
+          datos={[
+            { label: 'Inyección SQL', score: 7.5 },
+            { label: 'XSS', score: 6.1 },
+            { label: 'Inyección de comandos', score: 9.8 },
+          ]}
+        />
+      </Card>
 
       {/* Nota ética */}
       <Card className="bg-gray-50 border-gray-200">
