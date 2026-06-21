@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --sans: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/1.5 var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+  line-height: 1.5;
+}
