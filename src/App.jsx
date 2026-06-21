@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Plantilla from './components/Plantilla'
+import Resumen from './components/Resumen'
 
 /* Strings completos — Tailwind 4 no detecta clases dinámicas (ver CLAUDE.md) */
 const COLOR_MAP = {
@@ -20,8 +20,18 @@ const COLOR_MAP = {
  * `completada: true` activa el check y el punto de color en la navegación.
  */
 const secciones = [
-  { id: 'plantilla', label: '01 · Sección de ejemplo', componente: Plantilla, completada: false, color: 'blue' },
-  // { id: 'seccion02', label: '02 · …', componente: Seccion02, completada: false, color: 'indigo' },
+  // ── Informe A · Análisis de Vulnerabilidades ──
+  { id: 'resumen',     label: '01 · Resumen',              componente: Resumen, completada: true,  color: 'blue'    },
+  { id: 'sqli',        label: '02 · Inyección SQL',        componente: null,    completada: false, color: 'red'     },
+  { id: 'xss',         label: '03 · XSS',                  componente: null,    completada: false, color: 'amber'   },
+  { id: 'comandos',    label: '04 · Inyección de comandos', componente: null,   completada: false, color: 'purple'  },
+  // ── Informe B · Matriz de Riesgo ──
+  { id: 'activos',     label: '05 · Activos',              componente: null,    completada: false, color: 'emerald' },
+  { id: 'matriz',      label: '06 · Matriz de riesgo',     componente: null,    completada: false, color: 'teal'    },
+  { id: 'controles',   label: '07 · Controles',            componente: null,    completada: false, color: 'indigo'  },
+  { id: 'recuperacion', label: '08 · Recuperación',        componente: null,    completada: false, color: 'blue'    },
+  // ── Transversal ──
+  { id: 'prompts',     label: '09 · Bitácora de IA',       componente: null,    completada: false, color: 'gray'    },
 ]
 
 const completadas = secciones.filter((s) => s.completada).length
