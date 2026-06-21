@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Inicio from './components/Inicio'
 import Resumen from './components/Resumen'
@@ -134,10 +134,16 @@ function SidebarFooter() {
 function App() {
   const [activa, setActiva] = useState('inicio')
   const [menuAbierto, setMenuAbierto] = useState(false)
+  const mainRef = useRef(null)
 
   useEffect(() => {
     NavContext.go = (id) => { setActiva(id); setMenuAbierto(false) }
   }, [])
+
+  /* Al cambiar de sección, volver al inicio de la página para leer de arriba hacia abajo */
+  useEffect(() => {
+    mainRef.current?.scrollTo({ top: 0 })
+  }, [activa])
 
   const seccionActual = items.find((s) => s.id === activa)
   const Componente = seccionActual?.componente
@@ -192,7 +198,7 @@ function App() {
           )}
         </AnimatePresence>
 
-        <main className="flex-1 overflow-y-auto">
+        <main ref={mainRef} className="flex-1 overflow-y-auto">
           {Componente ? <Componente /> : <Placeholder label={seccionActual?.label} />}
         </main>
       </div>
