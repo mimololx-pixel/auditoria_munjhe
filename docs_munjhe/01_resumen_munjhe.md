@@ -14,9 +14,9 @@ en un **riesgo de negocio**.
 
 ---
 
-## Hotel Costa Brava
+## La empresa
 
-La empresa **Hotel Costa Brava** es un hotel de la costa de la Región de Valparaíso (Chile), de
+**Hotel Costa Brava** es un hotel de la costa de la Región de Valparaíso (Chile), de
 tamaño mediano, orientado a turismo nacional e internacional. Como cualquier hotel
 moderno, su negocio depende de internet: la mayoría de las reservas, pagos y consultas
 de los huéspedes pasan por sus sistemas digitales.
