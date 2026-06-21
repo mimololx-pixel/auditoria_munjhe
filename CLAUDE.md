@@ -1,4 +1,4 @@
-# Proyecto auditoria_mu-jhe — Metodología y forma de trabajo
+# Proyecto auditoria_munjhe — Metodología y forma de trabajo
 
 > Este documento captura **cómo se trabajó** el proyecto hermano `informe_mu-jhe` para
 > replicar la misma metodología aquí. Sirve de guía tanto para una persona como para una
@@ -8,7 +8,7 @@
 
 ## 🔴 REGLA DE ORO (lección aprendida — NO repetir el error)
 
-**El contenido evaluable vive en los `.md` de `docs_muñjhe/`, NO en los componentes React.**
+**El contenido evaluable vive en los `.md` de `docs_munjhe/`, NO en los componentes React.**
 
 En el proyecto anterior se desarrolló el contenido **directamente en los componentes `.jsx`**
 y los `.md` de `docs/` quedaron vacíos. Como la rúbrica/informe especifica que **se evalúan los
@@ -17,7 +17,7 @@ problema de **formato de entrega**, no solo de "olvidar commitear".
 
 **Cómo evitarlo:**
 1. Cada sección de la auditoría se escribe **primero (o en paralelo) en su `.md`** dentro de
-   `docs_muñjhe/`. Los componentes React solo **visualizan/presentan** ese contenido.
+   `docs_munjhe/`. Los componentes React solo **visualizan/presentan** ese contenido.
 2. Mantener `.md` y `.jsx` **sincronizados**: si cambia el contenido en el componente, reflejarlo
    en el `.md`.
 3. Antes de **cada commit**, correr `git status` y verificar que los `.md` de la fase estén
@@ -47,7 +47,7 @@ npm run lint     # ESLint
 ## Estructura del proyecto
 
 ```
-auditoria_mu-jhe/
+auditoria_munjhe/
 ├── CLAUDE.md              ← este documento
 ├── README.md
 ├── index.html
@@ -56,8 +56,8 @@ auditoria_mu-jhe/
 ├── tailwind.config.js
 ├── postcss.config.js
 ├── eslint.config.js
-├── docs_muñjhe/          ← 📌 LA ENTREGA EVALUABLE (un .md por sección)
-│   └── 00_plantilla_muñjhe.md
+├── docs_munjhe/          ← 📌 LA ENTREGA EVALUABLE (un .md por sección)
+│   └── 00_plantilla_munjhe.md
 └── src/
     ├── main.jsx
     ├── index.css         ← @import "tailwindcss" + tipografía base
@@ -69,7 +69,7 @@ auditoria_mu-jhe/
 ### Patrón clave: 1 componente ↔ 1 `.md`
 
 Cada sección del informe tiene **dos archivos espejo**:
-- `docs_muñjhe/0N_nombre_muñjhe.md` → el contenido (lo que se evalúa).
+- `docs_munjhe/0N_nombre_munjhe.md` → el contenido (lo que se evalúa).
 - `src/components/Nombre.jsx` → la presentación interactiva de ese contenido.
 
 Las secciones se registran en el array `secciones` de `src/App.jsx`
@@ -100,7 +100,7 @@ Las secciones se registran en el array `secciones` de `src/App.jsx`
 
 ## GitHub
 
-- Repo: `https://github.com/mimololx-pixel/auditoria_mu-jhe.git` (remote **sin token embebido**).
+- Repo: `https://github.com/mimololx-pixel/auditoria_munjhe.git` (remote **sin token embebido**).
 - ⚠️ **Seguridad:** no embeber el PAT en la URL del remote (queda en texto plano en `.git/config`).
   Usar un credential helper o `gh auth login`. El token del proyecto anterior estaba expuesto y
   debería rotarse.

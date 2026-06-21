@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Material de referencia del curso (PDFs del docente) — no es la entrega
+datos_auditoria/
+
+# Metadatos de Windows (WSL)
+*:Zone.Identifier

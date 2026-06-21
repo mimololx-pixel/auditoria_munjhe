@@ -1,6 +1,6 @@
 # [Título de la sección] — Proyecto de Auditoría
 
-> **Plantilla.** Copia este archivo como `0N_nombre_muñjhe.md` por cada sección del informe.
+> **Plantilla.** Copia este archivo como `0N_nombre_munjhe.md` por cada sección del informe.
 > Recuerda: **este `.md` es la entrega evaluable** (ver `CLAUDE.md` → REGLA DE ORO). El
 > componente React asociado solo lo presenta de forma interactiva; el contenido debe estar aquí.
 

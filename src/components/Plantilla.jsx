@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
  * Componente de ejemplo / plantilla.
  *
  * Patrón del proyecto: 1 componente .jsx por sección, ESPEJADO con un .md en
- * docs_muñjhe/. El contenido evaluable vive en el .md (ver CLAUDE.md → REGLA DE ORO).
+ * docs_munjhe/. El contenido evaluable vive en el .md (ver CLAUDE.md → REGLA DE ORO).
  * Este componente solo renderiza/visualiza ese contenido de forma interactiva.
  *
  * Copia este archivo para cada sección nueva (Seccion01.jsx, Seccion02.jsx, …)
@@ -27,7 +27,7 @@ export default function Plantilla() {
       <p className="text-gray-600 mb-4">
         Reemplaza este componente con el contenido real de la auditoría. Recuerda
         que la fuente de verdad evaluable es el archivo <code>.md</code> en{' '}
-        <code>docs_muñjhe/</code> — mantenlo sincronizado con lo que muestres aquí.
+        <code>docs_munjhe/</code> — mantenlo sincronizado con lo que muestres aquí.
       </p>
     </motion.div>
   )

@@ -16,7 +16,7 @@ const COLOR_MAP = {
 
 /*
  * Define aquí las secciones de la auditoría. Cada sección debe tener un .md
- * espejo en docs_muñjhe/ (esa es la entrega evaluable — ver CLAUDE.md).
+ * espejo en docs_munjhe/ (esa es la entrega evaluable — ver CLAUDE.md).
  * `completada: true` activa el check y el punto de color en la navegación.
  */
 const secciones = [
@@ -91,7 +91,7 @@ function SidebarHeader() {
       <div className="px-6 py-5 border-b border-gray-700">
         <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">Proyecto · Auditoría</p>
         <h1 className="text-base font-bold leading-tight">
-          Auditoría mu-jhe<br />
+          Auditoría munjhe<br />
           <span className="font-normal text-gray-300">Informe de auditoría</span>
         </h1>
       </div>
@@ -142,7 +142,7 @@ function App() {
         {/* Barra top móvil */}
         <div className="md:hidden bg-gray-900 text-white px-4 py-3 flex items-center justify-between shrink-0 relative z-10">
           <div>
-            <p className="text-xs text-gray-400 leading-none mb-0.5">Auditoría mu-jhe</p>
+            <p className="text-xs text-gray-400 leading-none mb-0.5">Auditoría munjhe</p>
             <p className="text-sm font-bold leading-tight">{seccionActual?.label}</p>
           </div>
           <button
