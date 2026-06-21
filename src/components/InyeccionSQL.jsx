@@ -1,5 +1,20 @@
-import { Page, PageHeader, Card, H3, Code, Severidad } from './ui'
+import { Page, PageHeader, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
 import sqliImg from '../../docs_munjhe/img_munjhe/sqli_munjhe.png'
+
+/* Usuarios que devuelve DVWA (presenta el resultado del .md, no añade datos evaluables) */
+const USUARIOS = ['admin', 'Gordon Brown', 'Hack Me', 'Pablo Picasso', 'Bob Smith']
+
+function ListaUsuarios({ filas }) {
+  return (
+    <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
+      {filas.map((u, i) => (
+        <div key={u} className={`px-3 py-1.5 text-sm text-gray-700 ${i ? 'border-t border-gray-100' : ''}`}>
+          👤 {u}
+        </div>
+      ))}
+    </div>
+  )
+}
 
 /*
  * 02 · Inyección SQL — Hotel Costa Brava
@@ -46,6 +61,31 @@ export default function InyeccionSQL() {
           huéspedes</strong> con sus nombres, documentos, correos y datos de contacto.
         </p>
       </Card>
+
+      <Demo
+        etiquetaCampo="User ID"
+        normal={{
+          entrada: '1',
+          codigo: "SELECT nombre FROM users WHERE id = '1';",
+          resultado: (
+            <>
+              <p className="mb-2 text-sm text-gray-500">1 registro (lo esperado):</p>
+              <ListaUsuarios filas={USUARIOS.slice(0, 1)} />
+            </>
+          ),
+        }}
+        ataque={{
+          entrada: "' OR '1'='1",
+          codigo: "SELECT nombre FROM users WHERE id = '' OR '1'='1';",
+          resaltar: "' OR '1'='1",
+          resultado: (
+            <>
+              <p className="mb-2 text-sm font-semibold text-red-700">⚠️ 5 de 5 registros expuestos:</p>
+              <ListaUsuarios filas={USUARIOS} />
+            </>
+          ),
+        }}
+      />
 
       <H3>Por qué funciona</H3>
       <p className="text-gray-600 mb-3">
@@ -122,6 +162,27 @@ $sql = "SELECT nombre FROM users WHERE id = '$id'";
 // SEGURO (consulta preparada — el dato jamás es SQL):
 $stmt = $conn->prepare("SELECT nombre FROM users WHERE id = ?");
 $stmt->bind_param("i", $id);   // "i" = se trata como ENTERO`}</Code>
+
+      <Autocomprobacion
+        pregunta="¿Cuál es la defensa principal contra la inyección SQL?"
+        opciones={[
+          {
+            texto: 'Usar consultas parametrizadas (prepared statements).',
+            correcta: true,
+            explicacion: '✔️ Correcto. Separan los datos de las instrucciones: lo que escribe el usuario nunca se interpreta como código SQL.',
+          },
+          {
+            texto: 'Poner un captcha en el formulario.',
+            correcta: false,
+            explicacion: '✖️ No. Un captcha solo frena bots; no impide que el texto enviado modifique la consulta.',
+          },
+          {
+            texto: 'Ocultar el formulario de búsqueda.',
+            correcta: false,
+            explicacion: '✖️ No. La falla está en cómo se construye la consulta, no en que el formulario sea visible.',
+          },
+        ]}
+      />
     </Page>
   )
 }
