@@ -65,20 +65,21 @@ const HERO_COLOR = {
   teal: 'bg-teal-50 text-teal-700',
 }
 
-export function SectionHero({ eyebrow, title, Icon, color = 'teal', children }) {
+export function SectionHero({ eyebrow, title, Icon, color = 'teal', arte, children }) {
   const cls = HERO_COLOR[color] ?? HERO_COLOR.teal
   return (
     <header className="mb-8">
-      <div className={`flex items-start gap-4 rounded-2xl p-5 ${cls}`}>
+      <div className={`flex items-center gap-4 rounded-2xl p-5 ${cls}`}>
         {Icon && (
-          <span className="shrink-0 rounded-xl bg-white/70 p-3">
+          <span className="shrink-0 self-start rounded-xl bg-white/70 p-3">
             <Icon size={28} />
           </span>
         )}
-        <div>
+        <div className="flex-1">
           {eyebrow && <p className="mb-1 text-xs font-semibold uppercase tracking-widest opacity-80">{eyebrow}</p>}
           <h2 className="text-3xl font-bold leading-tight">{title}</h2>
         </div>
+        {arte && <div className="hidden w-44 shrink-0 md:block">{arte}</div>}
       </div>
       {children && <p className="mt-4 text-lg leading-relaxed text-gray-600">{children}</p>}
     </header>

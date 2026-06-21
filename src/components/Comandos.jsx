@@ -1,5 +1,6 @@
 import { TerminalSquare } from 'lucide-react'
 import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
+import { ArteComandos } from './ilustraciones'
 import comandosImg from '../../docs_munjhe/img_munjhe/comandos_munjhe.png'
 
 /* Terminal simulada para mostrar la salida del servidor */
@@ -36,7 +37,7 @@ mysql:x:101:101:MySQL Server:/nonexistent:/bin/false`
 export default function Comandos() {
   return (
     <Page>
-      <SectionHero eyebrow="Informe A · Ataque 3 de 3" title="Inyección de comandos" Icon={TerminalSquare} color="purple">
+      <SectionHero eyebrow="Informe A · Ataque 3 de 3" title="Inyección de comandos" Icon={TerminalSquare} color="purple" arte={<ArteComandos className="w-full" />}>
         El ataque <strong>más grave</strong>: permite <strong>ejecutar órdenes en el servidor</strong>
         {' '}del hotel a través del portal — equivale a tomar su control.
       </SectionHero>

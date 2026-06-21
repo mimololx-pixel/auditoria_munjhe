@@ -1,5 +1,6 @@
 import { MessageSquareCode } from 'lucide-react'
 import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
+import { ArteXSS } from './ilustraciones'
 import xssImg from '../../docs_munjhe/img_munjhe/xss_munjhe.png'
 import xssPopupImg from '../../docs_munjhe/img_munjhe/xss_popup_munjhe.png'
 
@@ -40,7 +41,7 @@ function Navegador({ children, popup }) {
 export default function XSS() {
   return (
     <Page>
-      <SectionHero eyebrow="Informe A · Ataque 2 de 3" title="XSS (Cross-Site Scripting)" Icon={MessageSquareCode} color="amber">
+      <SectionHero eyebrow="Informe A · Ataque 2 de 3" title="XSS (Cross-Site Scripting)" Icon={MessageSquareCode} color="amber" arte={<ArteXSS className="w-full" />}>
         Cómo un atacante puede <strong>ejecutar código en el navegador de un huésped</strong> y
         robarle la sesión dentro del propio portal del hotel.
       </SectionHero>
