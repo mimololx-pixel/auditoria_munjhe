@@ -138,6 +138,31 @@ export function ArteMatriz({ className = '' }) {
   )
 }
 
+/* Controles: candado + engranaje (defensa técnica y operacional) */
+export function ArteControles({ className = '' }) {
+  return (
+    <svg viewBox="0 0 220 150" className={className} role="img" aria-label="Candado de seguridad con engranaje de operación">
+      {/* Engranaje de fondo (SecOps) */}
+      <g transform="translate(150,40)" fill="#c7d2fe">
+        <circle cx="22" cy="22" r="14" />
+        {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
+          <rect key={a} x="19" y="-2" width="6" height="12" rx="2" transform={`rotate(${a} 22 22)`} />
+        ))}
+        <circle cx="22" cy="22" r="7" fill="#eef2ff" />
+      </g>
+      {/* Candado */}
+      <g>
+        <path d="M58 70 v-12 a26 26 0 0 1 52 0 v12" fill="none" stroke="#6366f1" strokeWidth="9" />
+        <rect x="40" y="68" width="88" height="62" rx="12" fill="#6366f1" />
+        <rect x="40" y="68" width="88" height="62" rx="12" fill="#818cf8" opacity="0.35" />
+        {/* Ojo de cerradura */}
+        <circle cx="84" cy="92" r="9" fill="#eef2ff" />
+        <rect x="81" y="96" width="6" height="16" rx="3" fill="#eef2ff" />
+      </g>
+    </svg>
+  )
+}
+
 /* Hero de la portada: un hotel protegido por un escudo (auditoría de seguridad) */
 export function HeroHotelSeguro({ className = '' }) {
   return (

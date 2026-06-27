@@ -17,6 +17,7 @@ export const ORDEN = [
   { id: 'comandos', label: '04 · Inyección de comandos' },
   { id: 'activos', label: '05 · Activos' },
   { id: 'matriz', label: '06 · Matriz de riesgo' },
+  { id: 'controles', label: '07 · Controles' },
   { id: 'prompts', label: '09 · Bitácora de IA' },
   { id: 'glosario', label: 'Glosario' },
 ]

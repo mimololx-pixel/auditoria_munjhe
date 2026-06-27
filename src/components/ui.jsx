@@ -65,6 +65,7 @@ const HERO_COLOR = {
   teal: 'bg-teal-50 text-teal-700',
   emerald: 'bg-emerald-50 text-emerald-700',
   cyan: 'bg-cyan-50 text-cyan-700',
+  indigo: 'bg-indigo-50 text-indigo-700',
 }
 
 export function SectionHero({ eyebrow, title, Icon, color = 'teal', arte, children }) {
