@@ -8,6 +8,7 @@ import Comandos from './components/Comandos'
 import Activos from './components/Activos'
 import Matriz from './components/Matriz'
 import Controles from './components/Controles'
+import Recuperacion from './components/Recuperacion'
 import Prompts from './components/Prompts'
 import Glosario from './components/Glosario'
 import { ProgresoLectura, BotonSubir } from './components/ui'
@@ -38,7 +39,7 @@ const secciones = [
   { id: 'activos',      label: '05 · Activos',          componente: Activos, completada: true, color: 'emerald' },
   { id: 'matriz',       label: '06 · Matriz de riesgo', componente: Matriz, completada: true, color: 'cyan'    },
   { id: 'controles',    label: '07 · Controles',        componente: Controles, completada: true, color: 'indigo'  },
-  { id: 'recuperacion', label: '08 · Recuperación',     componente: null, completada: false, color: 'blue'    },
+  { id: 'recuperacion', label: '08 · Recuperación',     componente: Recuperacion, completada: true, color: 'blue'    },
 
   { grupo: 'Más' },
   { id: 'prompts',  label: '09 · Bitácora de IA', componente: Prompts,  completada: true, color: 'gray' },

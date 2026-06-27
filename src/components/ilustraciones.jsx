@@ -163,6 +163,29 @@ export function ArteControles({ className = '' }) {
   )
 }
 
+/* Recuperación: salvavidas + flecha de restauración (DR / backups) */
+export function ArteRecuperacion({ className = '' }) {
+  return (
+    <svg viewBox="0 0 220 150" className={className} role="img" aria-label="Salvavidas y flecha de recuperación de datos">
+      {/* Salvavidas */}
+      <g transform="translate(70,75)">
+        <circle r="46" fill="#2563eb" />
+        <circle r="46" fill="#60a5fa" opacity="0.35" />
+        <circle r="24" fill="#eff6ff" />
+        {/* Gajos blancos */}
+        {[0, 90, 180, 270].map((a) => (
+          <rect key={a} x="-6" y="-46" width="12" height="22" rx="3" fill="#eff6ff" transform={`rotate(${a})`} />
+        ))}
+      </g>
+      {/* Flecha circular de restauración */}
+      <g transform="translate(150,40)" fill="none" stroke="#1d4ed8" strokeWidth="6" strokeLinecap="round">
+        <path d="M40 22 a18 18 0 1 1 -6 -13" />
+        <path d="M34 2 L37 14 L25 13" strokeLinejoin="round" />
+      </g>
+    </svg>
+  )
+}
+
 /* Hero de la portada: un hotel protegido por un escudo (auditoría de seguridad) */
 export function HeroHotelSeguro({ className = '' }) {
   return (
