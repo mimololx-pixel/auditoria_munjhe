@@ -59,3 +59,76 @@ p {
 code, pre {
   font-family: var(--mono);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Sistema de diseño "Claro Premium": glass, gradientes y orbes decorativos.
+ * Solo presentación; no afecta el contenido evaluable de docs_munjhe/.
+ * ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --grad-accent: linear-gradient(135deg, #16bac5 0%, #5863f8 100%);
+  --grad-accent-soft: linear-gradient(135deg, #5fbff9 0%, #5863f8 100%);
+  --grad-sidebar: linear-gradient(180deg, #0f2d33 0%, #16323f 45%, #1e2454 100%);
+  --shadow-soft: 0 1px 2px rgba(23, 29, 28, .04), 0 8px 24px -8px rgba(23, 29, 28, .12);
+  --shadow-lift: 0 2px 4px rgba(23, 29, 28, .05), 0 18px 40px -12px rgba(88, 99, 248, .22);
+}
+
+/* Título con relleno de gradiente cian→índigo */
+.text-gradient {
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Tarjeta "glass": vidrio esmerilado sobre el fondo claro */
+.glass {
+  background: rgba(255, 255, 255, .62);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, .65);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Capa de orbes decorativos de fondo (difusos, sin interacción) */
+.orbes {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.orbes::before,
+.orbes::after {
+  content: "";
+  position: absolute;
+  width: 42rem;
+  height: 42rem;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: .5;
+}
+.orbes::before {
+  top: -12rem;
+  right: -10rem;
+  background: radial-gradient(circle, rgba(22, 186, 197, .55), transparent 65%);
+}
+.orbes::after {
+  bottom: -16rem;
+  left: -10rem;
+  background: radial-gradient(circle, rgba(88, 99, 248, .45), transparent 65%);
+}
+
+/* Gradiente del sidebar */
+.sidebar-grad { background: var(--grad-sidebar); }
+
+/* Scrollbar sutil para el nav oscuro */
+.scroll-sutil::-webkit-scrollbar { width: 8px; }
+.scroll-sutil::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, .18);
+  border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}

@@ -81,7 +81,7 @@ function NavItems({ activa, setActiva, onSelect }) {
   return secciones.map((s, i) => {
     if (s.grupo) {
       return (
-        <p key={`g${i}`} className="px-5 pt-5 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400">
+        <p key={`g${i}`} className="px-5 pt-5 pb-1 text-[11px] font-bold uppercase tracking-wider text-white/40">
           {s.grupo}
         </p>
       )
@@ -93,14 +93,14 @@ function NavItems({ activa, setActiva, onSelect }) {
         onClick={() => { setActiva(s.id); onSelect?.() }}
         className={`w-full text-left px-5 py-2.5 text-sm transition-all border-l-4 ${
           esActiva
-            ? 'bg-teal-50 text-teal-800 font-semibold border-teal-500'
-            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 border-transparent'
+            ? 'bg-white/10 text-white font-semibold border-cyan-400'
+            : 'text-white/65 hover:bg-white/5 hover:text-white border-transparent'
         }`}
       >
         <span className="flex items-center gap-2.5">
-          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${s.completada ? DOT[s.color] : (s.extra ? DOT[s.color] : 'bg-gray-300')}`} />
+          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${s.completada ? DOT[s.color] : (s.extra ? DOT[s.color] : 'bg-white/30')}`} />
           {s.label}
-          {s.completada && <span className="ml-auto text-xs text-teal-500">✓</span>}
+          {s.completada && <span className="ml-auto text-xs text-cyan-300">✓</span>}
         </span>
       </button>
     )
@@ -111,17 +111,17 @@ function SidebarHeader() {
   const pct = evaluables.length ? Math.round((completadas / evaluables.length) * 100) : 0
   return (
     <>
-      <div className="px-6 py-5 border-b border-gray-200">
-        <p className="text-xs uppercase tracking-widest text-teal-600 mb-1">Auditoría de seguridad</p>
-        <h1 className="text-lg font-extrabold leading-tight text-gray-800">Hotel Costa Brava</h1>
+      <div className="px-6 py-5 border-b border-white/10">
+        <p className="text-xs uppercase tracking-widest text-cyan-300 mb-1">Auditoría de seguridad</p>
+        <h1 className="text-xl font-extrabold leading-tight text-white">Hotel Costa Brava</h1>
       </div>
-      <div className="px-6 py-3 border-b border-gray-200">
-        <div className="flex justify-between text-xs text-gray-500 mb-1.5">
+      <div className="px-6 py-3 border-b border-white/10">
+        <div className="flex justify-between text-xs text-white/55 mb-1.5">
           <span>Avance del informe</span>
-          <span className="text-teal-600 font-semibold">{completadas} / {evaluables.length}</span>
+          <span className="font-semibold text-cyan-300">{completadas} / {evaluables.length}</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full" style={{ height: 4 }}>
-          <div className="bg-teal-500 rounded-full transition-all" style={{ height: 4, width: `${pct}%` }} />
+        <div className="w-full rounded-full bg-white/15" style={{ height: 5 }}>
+          <div className="rounded-full transition-all" style={{ height: 5, width: `${pct}%`, backgroundImage: 'var(--grad-accent)' }} />
         </div>
       </div>
     </>
@@ -130,7 +130,7 @@ function SidebarHeader() {
 
 function SidebarFooter() {
   return (
-    <div className="px-6 py-4 border-t border-gray-200 text-xs text-gray-400">
+    <div className="px-6 py-4 border-t border-white/10 text-xs text-white/40">
       INACAP · TI3034 · 2026
     </div>
   )
@@ -160,9 +160,9 @@ function App() {
       <ProgresoLectura />
       <BotonSubir />
       {/* Sidebar desktop */}
-      <aside className="hidden md:flex flex-col w-64 bg-white border-r border-gray-200 shrink-0">
+      <aside className="hidden md:flex flex-col w-64 sidebar-grad border-r border-white/10 shrink-0">
         <SidebarHeader />
-        <nav className="flex-1 overflow-y-auto py-2">
+        <nav className="flex-1 overflow-y-auto py-2 scroll-sutil">
           <NavItems activa={activa} setActiva={setActiva} />
         </nav>
         <SidebarFooter />
@@ -170,12 +170,12 @@ function App() {
 
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Barra superior móvil */}
-        <div className="md:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shrink-0 relative z-10">
+        <div className="md:hidden sidebar-grad border-b border-white/10 px-4 py-3 flex items-center justify-between shrink-0 relative z-10">
           <div>
-            <p className="text-xs text-teal-600 leading-none mb-0.5">Hotel Costa Brava</p>
-            <p className="text-sm font-bold leading-tight text-gray-800">{seccionActual?.label}</p>
+            <p className="text-xs text-cyan-300 leading-none mb-0.5">Hotel Costa Brava</p>
+            <p className="text-sm font-bold leading-tight text-white">{seccionActual?.label}</p>
           </div>
-          <button onClick={() => setMenuAbierto(!menuAbierto)} className="text-gray-600 hover:text-gray-900 p-1" aria-label="Menú">
+          <button onClick={() => setMenuAbierto(!menuAbierto)} className="text-white/80 hover:text-white p-1" aria-label="Menú">
             {menuAbierto ? <IconX /> : <IconMenu />}
           </button>
         </div>
@@ -195,10 +195,10 @@ function App() {
                 key="drawer"
                 initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
                 transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-                className="md:hidden fixed top-0 left-0 bottom-0 w-72 bg-white z-40 flex flex-col shadow-2xl border-r border-gray-200"
+                className="md:hidden fixed top-0 left-0 bottom-0 w-72 sidebar-grad z-40 flex flex-col shadow-2xl border-r border-white/10"
               >
                 <SidebarHeader />
-                <nav className="flex-1 overflow-y-auto py-2">
+                <nav className="flex-1 overflow-y-auto py-2 scroll-sutil">
                   <NavItems activa={activa} setActiva={setActiva} onSelect={() => setMenuAbierto(false)} />
                 </nav>
                 <SidebarFooter />
@@ -207,7 +207,8 @@ function App() {
           )}
         </AnimatePresence>
 
-        <main ref={mainRef} className="flex-1 overflow-y-auto">
+        <main ref={mainRef} className="relative flex-1 overflow-y-auto">
+          <div className="orbes" aria-hidden="true" />
           {Componente ? <Componente /> : <Placeholder label={seccionActual?.label} />}
         </main>
       </div>

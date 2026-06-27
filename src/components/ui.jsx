@@ -9,12 +9,52 @@ import { NavContext, ORDEN } from '../nav'
  * reducir duplicación. Acento único: teal.
  */
 
-/* Tarjeta suave reutilizable */
-export function Card({ children, className = '' }) {
+/*
+ * Tarjeta reutilizable. Por defecto es "glass" (vidrio esmerilado); si se le pasa
+ * un color de fondo propio (bg-*-50, p. ej. tarjetas temáticas) conserva ese color
+ * y solo hereda sombra/borde. Aparece con scroll-reveal y se eleva al pasar el cursor.
+ */
+export function Card({ children, className = '', reveal = true, hover = true }) {
+  const hasBg = /\bbg-/.test(className)
+  const base = hasBg
+    ? 'rounded-2xl border border-gray-200 p-5 shadow-[var(--shadow-soft)]'
+    : 'rounded-2xl glass p-5'
+  const lift = hover ? 'transition duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]' : ''
+  const anim = reveal
+    ? { initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.5, ease: 'easeOut' } }
+    : {}
   return (
-    <div className={`rounded-2xl border border-gray-200 bg-white p-5 shadow-sm ${className}`}>
+    <motion.div className={`${base} ${lift} ${className}`} {...anim}>
       {children}
-    </div>
+    </motion.div>
+  )
+}
+
+/* Wrapper de aparición al hacer scroll (con delay para escalonar grupos) */
+export function Reveal({ children, delay = 0, className = '' }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/* Botón CTA con gradiente cian→índigo */
+export function BotonGradiente({ children, onClick, className = '' }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{ backgroundImage: 'var(--grad-accent)' }}
+      className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 font-semibold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:brightness-110 ${className}`}
+    >
+      {children}
+    </button>
   )
 }
 
@@ -25,7 +65,7 @@ export function Page({ children }) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="max-w-3xl mx-auto px-6 py-12"
+      className="relative z-10 max-w-3xl mx-auto px-6 py-12"
     >
       {children}
     </motion.div>
@@ -37,53 +77,69 @@ export function PageHeader({ eyebrow, title, children }) {
   return (
     <header className="mb-8">
       {eyebrow && (
-        <p className="text-xs font-semibold uppercase tracking-widest text-teal-600 mb-2">
+        <p className="text-xs font-semibold uppercase tracking-widest text-gradient mb-2">
           {eyebrow}
         </p>
       )}
-      <h2 className="text-3xl font-bold text-gray-800 mb-3">{title}</h2>
+      <h2 className="text-4xl font-extrabold text-gray-800 mb-3">{title}</h2>
       {children && <p className="text-gray-600 text-lg leading-relaxed">{children}</p>}
     </header>
   )
 }
 
-/* Encabezado de subsección */
+/* Encabezado de subsección, con barra de acento en gradiente */
 export function H3({ children }) {
-  return <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-2">{children}</h3>
+  return (
+    <h3 className="text-xl font-bold text-gray-800 mb-3 mt-2 flex items-center gap-2.5">
+      <span className="h-5 w-1.5 rounded-full shrink-0" style={{ backgroundImage: 'var(--grad-accent)' }} />
+      {children}
+    </h3>
+  )
 }
 
 /*
- * Cabecera de sección con "cara" reconocible: banda de color suave + icono.
+ * Cabecera de sección con "cara" reconocible: banda de GRADIENTE vivo por color + icono.
  * Strings de color completos (Tailwind v4 no detecta clases dinámicas, ver CLAUDE.md).
  */
-const HERO_COLOR = {
-  blue: 'bg-blue-50 text-blue-700',
-  red: 'bg-red-50 text-red-700',
-  amber: 'bg-amber-50 text-amber-700',
-  purple: 'bg-purple-50 text-purple-700',
-  gray: 'bg-gray-100 text-gray-700',
-  teal: 'bg-teal-50 text-teal-700',
-  emerald: 'bg-emerald-50 text-emerald-700',
-  cyan: 'bg-cyan-50 text-cyan-700',
-  indigo: 'bg-indigo-50 text-indigo-700',
+const HERO_GRADIENT = {
+  blue: 'from-blue-500 to-indigo-600',
+  red: 'from-red-500 to-rose-600',
+  amber: 'from-amber-500 to-orange-600',
+  purple: 'from-purple-500 to-indigo-600',
+  gray: 'from-slate-500 to-slate-700',
+  teal: 'from-teal-500 to-cyan-600',
+  emerald: 'from-emerald-500 to-teal-600',
+  cyan: 'from-cyan-500 to-blue-600',
+  indigo: 'from-indigo-500 to-violet-600',
 }
 
 export function SectionHero({ eyebrow, title, Icon, color = 'teal', arte, children }) {
-  const cls = HERO_COLOR[color] ?? HERO_COLOR.teal
+  const grad = HERO_GRADIENT[color] ?? HERO_GRADIENT.teal
   return (
     <header className="mb-8">
-      <div className={`flex items-center gap-4 rounded-2xl p-5 ${cls}`}>
+      <motion.div
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className={`relative flex items-center gap-4 overflow-hidden rounded-3xl bg-gradient-to-br ${grad} p-6 text-white shadow-xl`}
+      >
+        {/* brillo decorativo */}
+        <span className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/15 blur-2xl" />
         {Icon && (
-          <span className="shrink-0 self-start rounded-xl bg-white/70 p-3">
-            <Icon size={28} />
+          <span className="relative shrink-0 self-start rounded-2xl bg-white/20 p-3 ring-1 ring-white/30 backdrop-blur">
+            <Icon size={30} />
           </span>
         )}
-        <div className="flex-1">
-          {eyebrow && <p className="mb-1 text-xs font-semibold uppercase tracking-widest opacity-80">{eyebrow}</p>}
-          <h2 className="text-3xl font-bold leading-tight">{title}</h2>
+        <div className="relative flex-1">
+          {eyebrow && (
+            <p className="mb-2 inline-block rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold uppercase tracking-widest ring-1 ring-white/30">
+              {eyebrow}
+            </p>
+          )}
+          <h2 className="text-3xl font-extrabold leading-tight drop-shadow-sm md:text-4xl">{title}</h2>
         </div>
-        {arte && <div className="hidden w-44 shrink-0 md:block">{arte}</div>}
-      </div>
+        {arte && <div className="relative hidden w-44 shrink-0 md:block">{arte}</div>}
+      </motion.div>
       {children && <p className="mt-4 text-lg leading-relaxed text-gray-600">{children}</p>}
     </header>
   )
@@ -111,7 +167,8 @@ export function NavPie({ id }) {
       {next ? (
         <button
           onClick={() => NavContext.go?.(next.id)}
-          className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700"
+          style={{ backgroundImage: 'var(--grad-accent)' }}
+          className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white shadow-md transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
         >
           <span className="hidden sm:inline">{next.label}</span>
           <span className="sm:hidden">Siguiente</span>
@@ -172,7 +229,7 @@ export function ProgresoLectura() {
   }, [])
   return (
     <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent">
-      <div className="h-full bg-teal-500 transition-[width] duration-150" style={{ width: `${pct}%` }} />
+      <div className="h-full transition-[width] duration-150" style={{ width: `${pct}%`, backgroundImage: 'var(--grad-accent)' }} />
     </div>
   )
 }
@@ -195,7 +252,8 @@ export function BotonSubir() {
           exit={{ opacity: 0, scale: 0.8 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Volver arriba"
-          className="fixed bottom-5 right-5 z-50 rounded-full bg-teal-600 p-3 text-white shadow-lg transition hover:bg-teal-700"
+          style={{ backgroundImage: 'var(--grad-accent)' }}
+          className="fixed bottom-5 right-5 z-50 rounded-full p-3 text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
         >
           <ArrowUp size={20} />
         </motion.button>

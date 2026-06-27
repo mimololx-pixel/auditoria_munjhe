@@ -131,6 +131,17 @@ la IA es una herramienta de apoyo.
   respeto de `prefers-reduced-motion` y liberación de recursos al desmontar. La paleta se aplicó
   solo al **acento** (rampa `teal`), preservando los colores semánticos de severidad.
 
+### 13. Rediseño visual "Claro Premium"
+- **Prompt:** "El cambio de paleta se notó poco; haz el proyecto visualmente atractivo, agrega lo
+  necesario."
+- **Acepté:** un rediseño notorio pero **legible**: fondo claro con tarjetas *glass* (vidrio
+  esmerilado), cabeceras de sección con **gradiente vivo**, **sidebar oscuro con gradiente**, orbes
+  decorativos de fondo y **scroll-reveal + micro-interacciones**.
+- **Corregí / dirigí:** concentré el rediseño en los **componentes compartidos** (`ui.jsx`,
+  `index.css`, `App.jsx`) para que se propagara a las 8 secciones sin duplicar trabajo; mantuve los
+  **colores semánticos de severidad** y la legibilidad (texto oscuro sobre glass), y verifiqué que
+  **no se tocó ningún `.md`** evaluable (solo `.jsx`/`.css`).
+
 ---
 
 ## Reflexión final
