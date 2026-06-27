@@ -1,6 +1,10 @@
+import { lazy, Suspense } from 'react'
 import { Page, Card, ComparativaCVSS } from './ui'
 import { NavContext } from '../nav'
 import { HeroHotelSeguro } from './ilustraciones'
+
+/* Detalle 3D (three.js) cargado de forma diferida: no entra en el bundle del resto de secciones */
+const Hero3D = lazy(() => import('./Hero3D'))
 import {
   ArrowRight, Compass, BookOpen, Database, MessageSquareCode, TerminalSquare,
   ShieldCheck, AlertTriangle, Flame, ShieldHalf,
@@ -55,7 +59,9 @@ export default function Inicio() {
             </button>
           </div>
         </div>
-        <HeroHotelSeguro className="w-full max-w-md mx-auto" />
+        <Suspense fallback={<HeroHotelSeguro className="w-full max-w-md mx-auto" />}>
+          <Hero3D className="w-full max-w-md mx-auto" />
+        </Suspense>
       </div>
 
       {/* Cómo leer esto */}

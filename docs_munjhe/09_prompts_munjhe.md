@@ -120,6 +120,17 @@ la IA es una herramienta de apoyo.
   para cubrir la "mejora tecnológica" del criterio; y enganché todo con **C4.2 (backups 3-2-1)** y
   los riesgos R4/R5/R1. Los comandos del runbook quedaron **ilustrativos**.
 
+### 12. Refinamiento visual (paleta + detalle 3D)
+- **Prompt:** "Revisa una paleta de Coolors y three.js; dime qué sirve para el proyecto."
+- **Acepté:** aplicar la **paleta de Coolors** (acento cian #16BAC5 + índigo #5863F8, fondo lavanda
+  #EFE9F4) como refinamiento sutil del tema, y añadir un **detalle 3D** (icosaedro low-poly con
+  three.js) en la portada.
+- **Corregí / dirigí:** descarté inicialmente three.js por **peso** (no aporta a una entrega evaluada
+  por contenido); al pedirlo igualmente, lo implementé **aislado**: carga diferida (`lazy`+`Suspense`)
+  para que **no engorde el bundle del resto de secciones**, con fallback a la ilustración SVG,
+  respeto de `prefers-reduced-motion` y liberación de recursos al desmontar. La paleta se aplicó
+  solo al **acento** (rampa `teal`), preservando los colores semánticos de severidad.
+
 ---
 
 ## Reflexión final

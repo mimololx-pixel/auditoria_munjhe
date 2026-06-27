@@ -1,16 +1,38 @@
 @import "tailwindcss";
 
+/*
+ * Paleta del sitio (Coolors): acento cian #16BAC5 + índigo #5863F8, azul claro
+ * #5FBFF9, fondo lavanda #EFE9F4, texto #171D1C. Se remapea la rampa `teal` de
+ * Tailwind (el acento del sitio) y un fondo lavanda muy suave; los colores
+ * semánticos por sección (rojo/ámbar/morado = severidad) se mantienen.
+ */
+@theme {
+  --color-teal-50: #ecfafc;
+  --color-teal-100: #cff3f6;
+  --color-teal-200: #a3e7ed;
+  --color-teal-300: #6dd6df;
+  --color-teal-400: #36c2cd;
+  --color-teal-500: #16bac5;
+  --color-teal-600: #0f97a1;
+  --color-teal-700: #0d7980;
+  --color-teal-800: #115e64;
+  --color-teal-900: #134e53;
+
+  /* Fondo general: lavanda muy tenue (derivado de #EFE9F4) */
+  --color-slate-50: #f5f3f8;
+}
+
 :root {
   /* Tipografía redondeada y legible (cargada en index.html) */
   --sans: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --mono: ui-monospace, 'Cascadia Code', Consolas, monospace;
 
   /* Acento único del sitio */
-  --accent: #0d9488;        /* teal-600 */
-  --accent-soft: #f0fdfa;   /* teal-50  */
+  --accent: #0f97a1;        /* teal-600 (Coolors #16BAC5) */
+  --accent-soft: #ecfafc;   /* teal-50  */
 
   font: 17px/1.6 var(--sans);
-  color: #1f2937;           /* gray-800 */
+  color: #171d1c;           /* casi negro (Coolors) */
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,7 +46,7 @@
 
 body {
   margin: 0;
-  background: #f8fafc;       /* slate-50 — fondo claro y suave */
+  background: #f5f3f8;       /* lavanda muy tenue (Coolors #EFE9F4) */
 }
 
 /* Texto alineado a la izquierda (más amable y legible que justificado) */
