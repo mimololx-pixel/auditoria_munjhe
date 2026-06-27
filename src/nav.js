@@ -15,6 +15,7 @@ export const ORDEN = [
   { id: 'sqli', label: '02 · Inyección SQL' },
   { id: 'xss', label: '03 · XSS' },
   { id: 'comandos', label: '04 · Inyección de comandos' },
+  { id: 'activos', label: '05 · Activos' },
   { id: 'prompts', label: '09 · Bitácora de IA' },
   { id: 'glosario', label: 'Glosario' },
 ]

@@ -74,6 +74,36 @@ export function ArteComandos({ className = '' }) {
   )
 }
 
+/* Activos: cajas/inventario apiladas protegidas por un escudo */
+export function ArteActivos({ className = '' }) {
+  return (
+    <svg viewBox="0 0 220 150" className={className} role="img" aria-label="Inventario de activos protegido por un escudo">
+      {/* Cajas apiladas (los activos) */}
+      <g>
+        <rect x="24" y="86" width="48" height="44" rx="6" fill="#34d399" />
+        <rect x="24" y="86" width="48" height="12" rx="6" fill="#6ee7b7" />
+        <rect x="44" y="92" width="8" height="20" rx="2" fill="#a7f3d0" />
+
+        <rect x="78" y="64" width="48" height="66" rx="6" fill="#10b981" />
+        <rect x="78" y="64" width="48" height="12" rx="6" fill="#6ee7b7" />
+        <rect x="98" y="70" width="8" height="20" rx="2" fill="#a7f3d0" />
+
+        <rect x="132" y="100" width="44" height="30" rx="6" fill="#059669" />
+        <rect x="132" y="100" width="44" height="11" rx="6" fill="#6ee7b7" />
+        <rect x="150" y="105" width="8" height="16" rx="2" fill="#a7f3d0" />
+      </g>
+      {/* Escudo de protección */}
+      <g transform="translate(150,18)">
+        <path
+          d="M28 2 C28 2 44 8 56 8 C56 8 57 40 44 55 C37 63 29 67 28 68 C27 67 19 63 12 55 C-1 40 0 8 0 8 C12 8 28 2 28 2 Z"
+          fill="#0d9488"
+        />
+        <path d="M17 34 L25 42 L40 24" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+    </svg>
+  )
+}
+
 /* Hero de la portada: un hotel protegido por un escudo (auditoría de seguridad) */
 export function HeroHotelSeguro({ className = '' }) {
   return (
