@@ -79,6 +79,47 @@ la IA es una herramienta de apoyo.
   los `.md` y **no se movió ningún contenido evaluable** a React (`git status` confirmó que
   solo cambiaron los `.jsx`).
 
+### 8. Activos de información y riesgos (Informe B · 3.1.2)
+- **Prompt (rol):** "Actúa como *Senior Cybersecurity Analyst*. Genera `05_activos` clasificando
+  los activos en **Datos, Software e Infraestructura Cloud**, con tabla técnica (ID, descripción,
+  criticidad) y una sección Wiki con un **glosario para humanos**."
+- **Acepté:** la tabla de activos con criticidad, el desglose paso a paso de riesgos y el glosario
+  "para humanos".
+- **Corregí / dirigí:** el prompt estaba pensado para **comercio/POS**; lo reorienté a **hotelería**
+  (PMS, cerraduras electrónicas, Wi-Fi de huéspedes…). Añadí una **4ª categoría Físico/IoT**, puse
+  el **sufijo `_munjhe`** y, sobre todo, di **ID a cada riesgo (R1–R6)** para engancharlos con la
+  matriz. Descarté el "estilo terminal" y el CVSS por activo (aquí la criticidad es Alta/Media/Baja).
+
+### 9. Matriz de riesgo y mapa de calor (Informe B · 3.1.3)
+- **Prompt (rol):** "Actúa como *Risk & Compliance Officer (ISO 27001)*. Genera `06_matriz` con
+  **Probabilidad × Impacto** en escala **1–5**, tablas de cálculo y un **mapa de calor 5×5** con
+  las 'zonas rojas'."
+- **Acepté:** la escala 1–5, la matriz P×I y la idea del mapa de calor + resumen ejecutivo.
+- **Corregí / dirigí:** lo até a **R1–R6** (no riesgos genéricos) y revisé personalmente la
+  **valoración P×I** de cada uno. Exigí que el mapa de calor fuera un **componente visual real**
+  (no solo tabla de texto), porque la rúbrica lo pide explícitamente. Definí **4 bandas** de
+  prioridad (Bajo/Medio/Alto/Crítico).
+
+### 10. Controles de prevención y mitigación (Informe B · 3.1.4/5)
+- **Prompt (rol):** "Actúa como *Security Engineer & SecOps*. Genera `07_controles` con matriz de
+  controles (WAF, cifrado, hashing, sanitización) vinculados al `ID_Riesgo`, y un **manual SecOps
+  de código seguro** (variables de entorno, bcrypt…)."
+- **Acepté:** la matriz `Control → Riesgo → Tipo → Implementación → Responsable` y el manual de
+  código seguro de colega a colega.
+- **Corregí / dirigí:** exigí **separar prevención (3.1.4) de mitigación (3.1.5)** marcando cada
+  control, y **mapear cada uno a OWASP Top 10 + CIS Controls** para dar rigor. Reorienté a
+  hotelería y mantuve los snippets **conceptuales** (la app es estática, no hay backend real).
+
+### 11. Mejora tecnológica y recuperación (Informe B · 3.1.6)
+- **Prompt (rol):** "Actúa como *Solutions Architect & DR Specialist*. Genera `08_recuperacion` con
+  métricas **RTO/RPO**, protocolo de incidentes y un **runbook de primeros auxilios** ('qué hacer
+  si…')."
+- **Acepté:** las métricas RTO/RPO, el protocolo por fases y el runbook accionable.
+- **Corregí / dirigí:** puse **RTO/RPO diferenciados por criticidad** (PMS estricto vs. datos
+  históricos) en vez de un único valor; añadí una **arquitectura objetivo de alta disponibilidad**
+  para cubrir la "mejora tecnológica" del criterio; y enganché todo con **C4.2 (backups 3-2-1)** y
+  los riesgos R4/R5/R1. Los comandos del runbook quedaron **ilustrativos**.
+
 ---
 
 ## Reflexión final
@@ -96,3 +137,8 @@ la IA es una herramienta de apoyo.
 - **El formato de entrega importa tanto como el contenido:** dirigí a la IA para que
   contrastara cada `.md` con la rúbrica oficial y confirmara que el contenido evaluable vive
   en `docs_munjhe/` (no en los componentes React), evitando el error de entregas anteriores.
+- **Adaptar plantillas genéricas al contexto real:** en el Informe B partí de prompts con rol
+  (analista, risk officer, SecOps, DR), pero **todos venían pensados para comercio/retail**. El
+  valor estuvo en **reorientarlos a hotelería**, encadenar las secciones entre sí (activos →
+  riesgos R1–R6 → matriz → controles → recuperación) y exigir estándares (OWASP/CIS, NIST, 3-2-1).
+  Un prompt bueno es un punto de partida, no la entrega.
