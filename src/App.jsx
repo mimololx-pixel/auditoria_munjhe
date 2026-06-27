@@ -6,6 +6,7 @@ import InyeccionSQL from './components/InyeccionSQL'
 import XSS from './components/XSS'
 import Comandos from './components/Comandos'
 import Activos from './components/Activos'
+import Matriz from './components/Matriz'
 import Prompts from './components/Prompts'
 import Glosario from './components/Glosario'
 import { ProgresoLectura, BotonSubir } from './components/ui'
@@ -34,7 +35,7 @@ const secciones = [
 
   { grupo: 'Informe B · Matriz de riesgo' },
   { id: 'activos',      label: '05 · Activos',          componente: Activos, completada: true, color: 'emerald' },
-  { id: 'matriz',       label: '06 · Matriz de riesgo', componente: null, completada: false, color: 'cyan'    },
+  { id: 'matriz',       label: '06 · Matriz de riesgo', componente: Matriz, completada: true, color: 'cyan'    },
   { id: 'controles',    label: '07 · Controles',        componente: null, completada: false, color: 'indigo'  },
   { id: 'recuperacion', label: '08 · Recuperación',     componente: null, completada: false, color: 'blue'    },
 

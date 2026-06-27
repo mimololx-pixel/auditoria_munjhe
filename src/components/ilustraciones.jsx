@@ -104,6 +104,40 @@ export function ArteActivos({ className = '' }) {
   )
 }
 
+/* Matriz de riesgo: mini mapa de calor 3x3 (verde→rojo en la diagonal) */
+export function ArteMatriz({ className = '' }) {
+  const colores = [
+    ['#86efac', '#fde047', '#fb923c'],
+    ['#fde047', '#fb923c', '#ef4444'],
+    ['#fb923c', '#ef4444', '#dc2626'],
+  ]
+  return (
+    <svg viewBox="0 0 220 150" className={className} role="img" aria-label="Mapa de calor de riesgo en cuadrícula">
+      {/* Ejes */}
+      <line x1="40" y1="20" x2="40" y2="128" stroke="#0e7490" strokeWidth="3" strokeLinecap="round" />
+      <line x1="40" y1="128" x2="200" y2="128" stroke="#0e7490" strokeWidth="3" strokeLinecap="round" />
+      {/* Cuadrícula 3x3 */}
+      {colores.map((fila, r) =>
+        fila.map((c, col) => (
+          <rect
+            key={`${r}-${col}`}
+            x={50 + col * 46}
+            y={22 + r * 34}
+            width="42"
+            height="30"
+            rx="5"
+            fill={c}
+          />
+        )),
+      )}
+      {/* Marcador del riesgo crítico (esquina superior derecha) */}
+      <circle cx="177" cy="37" r="9" fill="#fff" stroke="#dc2626" strokeWidth="3" />
+      <rect x="175.5" y="31" width="3" height="7" rx="1.5" fill="#dc2626" />
+      <circle cx="177" cy="41.5" r="1.6" fill="#dc2626" />
+    </svg>
+  )
+}
+
 /* Hero de la portada: un hotel protegido por un escudo (auditoría de seguridad) */
 export function HeroHotelSeguro({ className = '' }) {
   return (
