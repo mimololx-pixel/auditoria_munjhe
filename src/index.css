@@ -105,13 +105,32 @@ code, pre {
   box-shadow: var(--shadow-soft);
 }
 
-/* Capa de orbes decorativos de fondo (difusos, sin interacción) */
+/* Capa de orbes decorativos de fondo (difusos, sin interacción).
+ * Además de los dos orbes (::before/::after), la capa lleva un degradado muy
+ * tenue que "respira": desplaza su posición lentamente para dar vida al fondo
+ * sin distraer ni afectar la legibilidad. Se congela con prefers-reduced-motion. */
 .orbes {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  background: linear-gradient(120deg,
+    rgba(22, 186, 197, .10) 0%, rgba(95, 191, 249, .07) 35%,
+    rgba(88, 99, 248, .10) 70%, rgba(245, 243, 248, 0) 100%);
+  background-size: 200% 200%;
+  animation: gradienteRespira 28s ease-in-out infinite;
+}
+@keyframes gradienteRespira {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+/* Variante oscura: tonos profundos, igual de sutil */
+.dark .orbes {
+  background: linear-gradient(120deg,
+    rgba(22, 186, 197, .10) 0%, rgba(56, 63, 120, .18) 40%,
+    rgba(88, 99, 248, .12) 75%, rgba(11, 18, 32, 0) 100%);
+  background-size: 200% 200%;
 }
 .orbes::before,
 .orbes::after {
