@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Modo oscuro por clase .dark en <html> (Tailwind v4) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
  * Paleta del sitio (Coolors): acento cian #16BAC5 + índigo #5863F8, azul claro
  * #5FBFF9, fondo lavanda #EFE9F4, texto #171D1C. Se remapea la rampa `teal` de
@@ -131,4 +134,59 @@ code, pre {
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* ─── Modo oscuro ─────────────────────────────────────────────────────────
+ * Override acotado de los neutrales más usados para un dark cohesivo sin
+ * editar cada componente. Los acentos (teal/indigo/rojo…) se mantienen.
+ * ───────────────────────────────────────────────────────────────────────── */
+.dark body { background: #0b1220; }
+.dark { color: #e5e7eb; color-scheme: dark; }
+
+.dark .glass {
+  background: rgba(30, 37, 47, .62);
+  border-color: rgba(255, 255, 255, .08);
+  box-shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -10px rgba(0,0,0,.5);
+}
+.dark .orbes::before { opacity: .35; }
+.dark .orbes::after { opacity: .35; }
+
+/* Texto neutro */
+.dark .text-gray-800 { color: #f1f5f9; }
+.dark .text-gray-700 { color: #e2e8f0; }
+.dark .text-gray-600 { color: #cbd5e1; }
+.dark .text-gray-500 { color: #94a3b8; }
+.dark .text-gray-400 { color: #64748b; }
+
+/* Superficies neutras */
+.dark .bg-white { background-color: #1e252e; }
+.dark .bg-gray-50 { background-color: #161c24; }
+.dark .bg-gray-100 { background-color: #1f2731; }
+.dark .bg-slate-50 { background-color: #0b1220; }
+
+/* Bordes y divisores neutros */
+.dark .border-gray-200 { border-color: #2b333d; }
+.dark .border-gray-300 { border-color: #323b46; }
+.dark .border-gray-100 { border-color: #232b34; }
+.dark .divide-gray-100 > :not([hidden]) ~ :not([hidden]) { border-color: #232b34; }
+
+/* Formularios */
+.dark input { background-color: #1e252e; color: #e5e7eb; }
+
+/* ─── Impresión / PDF ─────────────────────────────────────────────────────
+ * Oculta la interfaz y muestra el informe completo apilado, forzando que todo
+ * sea visible (anula los estados ocultos de las animaciones de scroll).
+ * ───────────────────────────────────────────────────────────────────────── */
+.solo-impresion { display: none; }
+@media print {
+  .app-shell, .orbes { display: none !important; }
+  .solo-impresion { display: block !important; }
+  * {
+    opacity: 1 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    color: #111 !important;
+    background: transparent !important;
+  }
+  body { background: #fff !important; }
 }

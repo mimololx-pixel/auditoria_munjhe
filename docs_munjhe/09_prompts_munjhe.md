@@ -142,6 +142,18 @@ la IA es una herramienta de apoyo.
   **colores semánticos de severidad** y la legibilidad (texto oscuro sobre glass), y verifiqué que
   **no se tocó ningún `.md`** evaluable (solo `.jsx`/`.css`).
 
+### 14. Mejoras "WOW" y comprensión para no-técnicos
+- **Prompt:** "Inspirándote en proyectos de compañeros, propón mejoras para romperla y que cualquier
+  persona sin conocimientos de seguridad entienda todo."
+- **Acepté / implementé** (en 3 lotes): panel ejecutivo con contadores y distribución de riesgos;
+  botón GitHub + QR; índice lateral con scroll-spy; **tooltips de glosario** inline; **modo
+  simple/técnico**; **diagramas de ataque animados**; **quiz final** con puntaje; **modo oscuro**;
+  **buscador global (Cmd+K)**; **tour de bienvenida**; **descargar/imprimir** el informe; y más 3D.
+- **Corregí / dirigí:** prioricé las mejoras por impacto vs. esfuerzo y las hice **por lotes**
+  verificando cada uno; concentré el rediseño en componentes compartidos; cuidé **legibilidad**
+  (contraste en oscuro) y **rendimiento** (three.js en chunk lazy). Todo es presentación: **no se
+  tocó ningún `.md` evaluable**.
+
 ---
 
 ## Reflexión final

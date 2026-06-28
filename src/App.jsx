@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Moon, Sun, Search, HelpCircle, Printer } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
 import { usePref } from './preferencias'
 import IndiceLateral from './components/IndiceLateral'
+import BuscadorGlobal from './components/BuscadorGlobal'
+import Tour from './components/Tour'
 import Inicio from './components/Inicio'
 import Resumen from './components/Resumen'
 import InyeccionSQL from './components/InyeccionSQL'
@@ -130,10 +133,28 @@ function IconGithub({ size = 16 }) {
   )
 }
 
-function SidebarExtras() {
-  const { tecnico, setTecnico } = usePref()
+function SidebarExtras({ onBuscar, onTour, onImprimir }) {
+  const { tecnico, setTecnico, oscuro, setOscuro } = usePref()
   return (
     <div className="px-4 pb-3 pt-2 space-y-3">
+      <button
+        onClick={onBuscar}
+        className="flex w-full items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white/70 transition hover:bg-white/10"
+      >
+        <Search size={15} /> Buscar…
+        <kbd className="ml-auto rounded bg-white/10 px-1.5 py-0.5 text-[10px] text-white/60">⌘K</kbd>
+      </button>
+      <div className="flex items-center justify-between">
+        <p className="text-[11px] font-semibold uppercase tracking-wider text-white/40">Apariencia</p>
+        <button
+          onClick={() => setOscuro(!oscuro)}
+          className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white/85 transition hover:bg-white/20"
+          aria-label="Cambiar tema"
+        >
+          {oscuro ? <Sun size={14} /> : <Moon size={14} />}
+          {oscuro ? 'Claro' : 'Oscuro'}
+        </button>
+      </div>
       <div>
         <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-white/40">Modo de lectura</p>
         <div className="inline-flex w-full rounded-lg bg-white/10 p-0.5 text-sm">
@@ -154,14 +175,29 @@ function SidebarExtras() {
           {tecnico ? 'Mostrando todo el detalle técnico.' : 'Mostrando solo lo esencial.'}
         </p>
       </div>
-      <a
-        href={REPO_URL}
-        target="_blank"
-        rel="noreferrer"
-        className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white/85 transition hover:bg-white/10"
+      <div className="flex gap-2">
+        <a
+          href={REPO_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white/85 transition hover:bg-white/10"
+        >
+          <IconGithub size={16} /> GitHub
+        </a>
+        <button
+          onClick={onTour}
+          className="flex items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white/85 transition hover:bg-white/10"
+          aria-label="Cómo usar esta Wiki"
+        >
+          <HelpCircle size={16} /> Guía
+        </button>
+      </div>
+      <button
+        onClick={onImprimir}
+        className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-white/85 transition hover:bg-white/10"
       >
-        <IconGithub size={16} /> Ver en GitHub
-      </a>
+        <Printer size={16} /> Descargar / Imprimir
+      </button>
       <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3">
         <div className="rounded-md bg-white p-1.5">
           <QRCodeSVG value={SITE_URL} size={56} bgColor="#ffffff" fgColor="#0f2d33" />
@@ -186,11 +222,37 @@ function SidebarFooter() {
 function App() {
   const [activa, setActiva] = useState('inicio')
   const [menuAbierto, setMenuAbierto] = useState(false)
+  const [buscador, setBuscador] = useState(false)
+  const [tour, setTour] = useState(() => localStorage.getItem('tour-visto') !== '1')
   const mainRef = useRef(null)
 
   useEffect(() => {
     NavContext.go = (id) => { setActiva(id); setMenuAbierto(false) }
   }, [])
+
+  /* Atajo de teclado Cmd/Ctrl+K para el buscador global */
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setBuscador((b) => !b)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  const cerrarTour = () => { localStorage.setItem('tour-visto', '1'); setTour(false) }
+
+  /* Impresión / PDF del informe completo */
+  const [imprimiendo, setImprimiendo] = useState(false)
+  useEffect(() => {
+    if (!imprimiendo) return
+    const t = setTimeout(() => window.print(), 250)
+    const after = () => setImprimiendo(false)
+    window.addEventListener('afterprint', after)
+    return () => { clearTimeout(t); window.removeEventListener('afterprint', after) }
+  }, [imprimiendo])
 
   /* Al cambiar de sección, volver al inicio de la página para leer de arriba hacia abajo.
      El scroll real lo hace la ventana (el layout usa min-h-screen, no altura fija). */
@@ -203,16 +265,19 @@ function App() {
   const Componente = seccionActual?.componente
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-gray-800">
+    <>
+    <div className="app-shell flex min-h-screen bg-slate-50 text-gray-800">
       <ProgresoLectura />
       <BotonSubir />
+      <BuscadorGlobal abierto={buscador} onClose={() => setBuscador(false)} secciones={items} />
+      <Tour abierto={tour} onClose={cerrarTour} />
       {/* Sidebar desktop */}
       <aside className="hidden md:flex flex-col w-64 sidebar-grad border-r border-white/10 shrink-0">
         <SidebarHeader />
         <nav className="flex-1 overflow-y-auto py-2 scroll-sutil">
           <NavItems activa={activa} setActiva={setActiva} />
         </nav>
-        <SidebarExtras />
+        <SidebarExtras onBuscar={() => setBuscador(true)} onTour={() => setTour(true)} onImprimir={() => setImprimiendo(true)} />
         <SidebarFooter />
       </aside>
 
@@ -223,9 +288,14 @@ function App() {
             <p className="text-xs text-cyan-300 leading-none mb-0.5">Hotel Costa Brava</p>
             <p className="text-sm font-bold leading-tight text-white">{seccionActual?.label}</p>
           </div>
-          <button onClick={() => setMenuAbierto(!menuAbierto)} className="text-white/80 hover:text-white p-1" aria-label="Menú">
-            {menuAbierto ? <IconX /> : <IconMenu />}
-          </button>
+          <div className="flex items-center gap-1">
+            <button onClick={() => setBuscador(true)} className="text-white/80 hover:text-white p-1" aria-label="Buscar">
+              <Search size={22} />
+            </button>
+            <button onClick={() => setMenuAbierto(!menuAbierto)} className="text-white/80 hover:text-white p-1" aria-label="Menú">
+              {menuAbierto ? <IconX /> : <IconMenu />}
+            </button>
+          </div>
         </div>
 
         {/* Drawer móvil */}
@@ -249,7 +319,7 @@ function App() {
                 <nav className="flex-1 overflow-y-auto py-2 scroll-sutil">
                   <NavItems activa={activa} setActiva={setActiva} onSelect={() => setMenuAbierto(false)} />
                 </nav>
-                <SidebarExtras />
+                <SidebarExtras onBuscar={() => { setMenuAbierto(false); setBuscador(true) }} onTour={() => { setMenuAbierto(false); setTour(true) }} onImprimir={() => { setMenuAbierto(false); setImprimiendo(true) }} />
                 <SidebarFooter />
               </motion.aside>
             </>
@@ -263,7 +333,17 @@ function App() {
         </main>
       </div>
     </div>
+
+    {imprimiendo && (
+      <div className="solo-impresion">
+        {REPORTE.map((C, i) => <C key={i} />)}
+      </div>
+    )}
+    </>
   )
 }
+
+/* Secciones que componen el informe imprimible (en orden) */
+const REPORTE = [Resumen, InyeccionSQL, XSS, Comandos, Activos, Matriz, Controles, Recuperacion, Prompts]
 
 export default App
