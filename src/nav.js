@@ -11,14 +11,14 @@ export const NavContext = { go: null }
  */
 export const ORDEN = [
   { id: 'inicio', label: 'Inicio' },
-  { id: 'resumen', label: '01 · Resumen' },
-  { id: 'sqli', label: '02 · Inyección SQL' },
-  { id: 'xss', label: '03 · XSS' },
-  { id: 'comandos', label: '04 · Inyección de comandos' },
-  { id: 'activos', label: '05 · Activos' },
-  { id: 'matriz', label: '06 · Matriz de riesgo' },
-  { id: 'controles', label: '07 · Controles' },
-  { id: 'recuperacion', label: '08 · Recuperación' },
-  { id: 'prompts', label: '09 · Bitácora de IA' },
+  { id: 'resumen', label: 'Introducción' },
+  { id: 'sqli', label: 'Inyección SQL' },
+  { id: 'xss', label: 'XSS' },
+  { id: 'comandos', label: 'Inyección de comandos' },
+  { id: 'activos', label: 'Activos y riesgos' },
+  { id: 'matriz', label: 'Matriz de riesgo' },
+  { id: 'controles', label: 'Controles' },
+  { id: 'recuperacion', label: 'Recuperación' },
+  { id: 'prompts', label: 'Bitácora de IA' },
   { id: 'glosario', label: 'Glosario' },
 ]

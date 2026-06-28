@@ -29,26 +29,24 @@ const DOT = {
 const secciones = [
   { id: 'inicio', label: 'Inicio', componente: Inicio, color: 'teal', extra: true },
 
-  { grupo: 'Informe A · Vulnerabilidades' },
-  { id: 'resumen',  label: '01 · Resumen',               componente: Resumen,      completada: true,  color: 'blue'   },
-  { id: 'sqli',     label: '02 · Inyección SQL',         componente: InyeccionSQL, completada: true,  color: 'red'    },
-  { id: 'xss',      label: '03 · XSS',                   componente: XSS,          completada: true,  color: 'amber'  },
-  { id: 'comandos', label: '04 · Inyección de comandos', componente: Comandos,     completada: true,  color: 'purple' },
+  { grupo: 'Vulnerabilidades' },
+  { id: 'resumen',  label: 'Introducción',          componente: Resumen,      color: 'blue'   },
+  { id: 'sqli',     label: 'Inyección SQL',         componente: InyeccionSQL, color: 'red'    },
+  { id: 'xss',      label: 'XSS',                   componente: XSS,          color: 'amber'  },
+  { id: 'comandos', label: 'Inyección de comandos', componente: Comandos,     color: 'purple' },
 
-  { grupo: 'Informe B · Matriz de riesgo' },
-  { id: 'activos',      label: '05 · Activos',          componente: Activos, completada: true, color: 'emerald' },
-  { id: 'matriz',       label: '06 · Matriz de riesgo', componente: Matriz, completada: true, color: 'cyan'    },
-  { id: 'controles',    label: '07 · Controles',        componente: Controles, completada: true, color: 'indigo'  },
-  { id: 'recuperacion', label: '08 · Recuperación',     componente: Recuperacion, completada: true, color: 'blue'    },
+  { grupo: 'Gestión de riesgo' },
+  { id: 'activos',      label: 'Activos y riesgos', componente: Activos,      color: 'emerald' },
+  { id: 'matriz',       label: 'Matriz de riesgo',  componente: Matriz,       color: 'cyan'    },
+  { id: 'controles',    label: 'Controles',         componente: Controles,    color: 'indigo'  },
+  { id: 'recuperacion', label: 'Recuperación',      componente: Recuperacion, color: 'blue'    },
 
-  { grupo: 'Más' },
-  { id: 'prompts',  label: '09 · Bitácora de IA', componente: Prompts,  completada: true, color: 'gray' },
-  { id: 'glosario', label: 'Glosario',            componente: Glosario, color: 'teal', extra: true },
+  { grupo: 'Recursos' },
+  { id: 'prompts',  label: 'Bitácora de IA', componente: Prompts,  color: 'gray' },
+  { id: 'glosario', label: 'Glosario',       componente: Glosario, color: 'teal', extra: true },
 ]
 
 const items = secciones.filter((s) => s.id)
-const evaluables = items.filter((s) => !s.extra)
-const completadas = evaluables.filter((s) => s.completada).length
 
 function Placeholder({ label }) {
   return (
@@ -98,9 +96,8 @@ function NavItems({ activa, setActiva, onSelect }) {
         }`}
       >
         <span className="flex items-center gap-2.5">
-          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${s.completada ? DOT[s.color] : (s.extra ? DOT[s.color] : 'bg-white/30')}`} />
+          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${DOT[s.color] ?? 'bg-white/30'}`} />
           {s.label}
-          {s.completada && <span className="ml-auto text-xs text-cyan-300">✓</span>}
         </span>
       </button>
     )
@@ -108,30 +105,18 @@ function NavItems({ activa, setActiva, onSelect }) {
 }
 
 function SidebarHeader() {
-  const pct = evaluables.length ? Math.round((completadas / evaluables.length) * 100) : 0
   return (
-    <>
-      <div className="px-6 py-5 border-b border-white/10">
-        <p className="text-xs uppercase tracking-widest text-cyan-300 mb-1">Auditoría de seguridad</p>
-        <h1 className="text-xl font-extrabold leading-tight text-white">Hotel Costa Brava</h1>
-      </div>
-      <div className="px-6 py-3 border-b border-white/10">
-        <div className="flex justify-between text-xs text-white/55 mb-1.5">
-          <span>Avance del informe</span>
-          <span className="font-semibold text-cyan-300">{completadas} / {evaluables.length}</span>
-        </div>
-        <div className="w-full rounded-full bg-white/15" style={{ height: 5 }}>
-          <div className="rounded-full transition-all" style={{ height: 5, width: `${pct}%`, backgroundImage: 'var(--grad-accent)' }} />
-        </div>
-      </div>
-    </>
+    <div className="px-6 py-5 border-b border-white/10">
+      <p className="text-xs uppercase tracking-widest text-cyan-300 mb-1">Wiki de seguridad</p>
+      <h1 className="text-xl font-extrabold leading-tight text-white">Hotel Costa Brava</h1>
+    </div>
   )
 }
 
 function SidebarFooter() {
   return (
     <div className="px-6 py-4 border-t border-white/10 text-xs text-white/40">
-      INACAP · TI3034 · 2026
+      🛡️ Guía de seguridad web
     </div>
   )
 }
