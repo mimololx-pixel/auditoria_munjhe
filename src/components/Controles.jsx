@@ -52,11 +52,11 @@ export default function Controles() {
       <div className="grid gap-4 sm:grid-cols-2 mb-8">
         <Card className="bg-emerald-50 border-emerald-200">
           <p className="text-sm font-semibold text-emerald-900 mb-1">🛡️ Prevención (3.1.4)</p>
-          <p className="text-sm text-emerald-900/90">Medidas para que el problema <strong>no ocurra</strong>. Es la cerradura de la puerta: impedir la entrada.</p>
+          <p className="text-sm text-emerald-900">Medidas para que el problema <strong>no ocurra</strong>. Es la cerradura de la puerta: impedir la entrada.</p>
         </Card>
         <Card className="bg-blue-50 border-blue-200">
           <p className="text-sm font-semibold text-blue-900 mb-1">🩹 Mitigación (3.1.5)</p>
-          <p className="text-sm text-blue-900/90">Medidas para que, <strong>si ocurre igual</strong>, el daño sea el menor posible. Es el extintor y el seguro.</p>
+          <p className="text-sm text-blue-900">Medidas para que, <strong>si ocurre igual</strong>, el daño sea el menor posible. Es el extintor y el seguro.</p>
         </Card>
       </div>
 

@@ -171,7 +171,7 @@ export default function Activos() {
         {GLOSARIO.map(([titulo, texto]) => (
           <Card key={titulo} className="bg-emerald-50/60 border-emerald-200">
             <p className="text-sm font-semibold text-emerald-900 mb-1">{titulo}</p>
-            <p className="text-sm text-emerald-900/90">{texto}</p>
+            <p className="text-sm text-emerald-900">{texto}</p>
           </Card>
         ))}
       </div>

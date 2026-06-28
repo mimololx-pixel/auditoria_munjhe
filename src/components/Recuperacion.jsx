@@ -100,11 +100,11 @@ export default function Recuperacion() {
       <div className="grid gap-4 sm:grid-cols-2 mb-8">
         <Card className="bg-blue-50 border-blue-200">
           <p className="text-sm font-semibold text-blue-900 mb-1">⏱️ RTO</p>
-          <p className="text-sm text-blue-900/90"><em>¿Cuánto tardo en volver a funcionar?</em> Tiempo máximo aceptable de caída antes de restablecer el servicio.</p>
+          <p className="text-sm text-blue-900"><em>¿Cuánto tardo en volver a funcionar?</em> Tiempo máximo aceptable de caída antes de restablecer el servicio.</p>
         </Card>
         <Card className="bg-blue-50 border-blue-200">
           <p className="text-sm font-semibold text-blue-900 mb-1">💾 RPO</p>
-          <p className="text-sm text-blue-900/90"><em>¿Cuántos datos puedo perder?</em> Tiempo máximo entre respaldos; si el último fue hace 1 h, pierdo hasta 1 h de reservas.</p>
+          <p className="text-sm text-blue-900"><em>¿Cuántos datos puedo perder?</em> Tiempo máximo entre respaldos; si el último fue hace 1 h, pierdo hasta 1 h de reservas.</p>
         </Card>
       </div>
 
@@ -167,7 +167,7 @@ export default function Recuperacion() {
       </Card>
       <Card className="mb-8 bg-emerald-50 border-emerald-200">
         <p className="text-sm font-semibold text-emerald-900 mb-1">Regla 3-2-1 de respaldos</p>
-        <p className="text-sm text-emerald-900/90">
+        <p className="text-sm text-emerald-900">
           <strong>3</strong> copias · en <strong>2</strong> medios distintos · con <strong>1</strong>
           fuera del sitio e inmutable/offline. La copia offline es clave contra <strong>ransomware
           (R4)</strong>: el malware no puede cifrar lo que no alcanza. Y los backups se
