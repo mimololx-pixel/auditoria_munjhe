@@ -230,21 +230,19 @@ function App() {
     NavContext.go = (id) => { setActiva(id); setMenuAbierto(false) }
   }, [])
 
-  /* Parallax del fondo: los orbes (.orbes) siguen suavemente al cursor. Solo en
-     dispositivos con mouse y si no se pidió reducir el movimiento. */
+  /* Fondo interactivo: un halo de luz sigue al cursor. Solo en dispositivos con
+     mouse. NO se desactiva con prefers-reduced-motion a propósito: es movimiento
+     que provoca el propio usuario al mover el ratón (no animación autónoma). */
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let raf = 0
     const onMove = (e) => {
       if (raf) return
       raf = requestAnimationFrame(() => {
         raf = 0
-        const x = (e.clientX / window.innerWidth - 0.5)
-        const y = (e.clientY / window.innerHeight - 0.5)
         const root = document.documentElement
-        root.style.setProperty('--orb-x', x.toFixed(3))
-        root.style.setProperty('--orb-y', y.toFixed(3))
+        root.style.setProperty('--mx', `${e.clientX}px`)
+        root.style.setProperty('--my', `${e.clientY}px`)
       })
     }
     window.addEventListener('pointermove', onMove)
