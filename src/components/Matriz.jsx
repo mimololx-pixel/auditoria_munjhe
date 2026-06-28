@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Grid3x3, AlertTriangle } from 'lucide-react'
 import { Page, SectionHero, NavPie, Card, H3 } from './ui'
 import { ArteMatriz } from './ilustraciones'
+import { bandaDe } from '../data/severidad'
 
 /*
  * 06 · Matriz de Riesgo y Mapa de Calor — Hotel Costa Brava
@@ -18,13 +19,7 @@ const RIESGOS = [
   { id: 'R5', P: 3, I: 4, titulo: 'Caída / DDoS en temporada alta', origen: 'Disponibilidad', impacto: 'Sin motor de reservas en plena demanda: pérdida directa de ventas.' },
 ]
 
-/* Bandas de prioridad por nivel P×I — strings completos (Tailwind v4, ver CLAUDE.md) */
-function bandaDe(nivel) {
-  if (nivel >= 15) return { nombre: 'Crítico', emoji: '🔴', cell: 'bg-red-400 text-white', chip: 'bg-red-100 text-red-800' }
-  if (nivel >= 10) return { nombre: 'Alto', emoji: '🟠', cell: 'bg-orange-300 text-orange-900', chip: 'bg-orange-100 text-orange-800' }
-  if (nivel >= 5) return { nombre: 'Medio', emoji: '🟡', cell: 'bg-yellow-200 text-yellow-900', chip: 'bg-yellow-100 text-yellow-800' }
-  return { nombre: 'Bajo', emoji: '🟢', cell: 'bg-emerald-200 text-emerald-900', chip: 'bg-emerald-100 text-emerald-800' }
-}
+/* Las bandas de prioridad vienen de la fuente única src/data/severidad.js */
 
 const P_LABEL = { 1: 'Muy baja', 2: 'Baja', 3: 'Media', 4: 'Alta', 5: 'Muy alta' }
 const I_LABEL = { 1: 'Insignificante', 2: 'Menor', 3: 'Moderado', 4: 'Mayor', 5: 'Catastrófico' }
@@ -148,7 +143,7 @@ export default function Matriz() {
       </div>
       <div className="flex flex-wrap gap-2 mb-8 text-xs">
         <span className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-800">🟢 Bajo · 1–4 · vigilar</span>
-        <span className="rounded-full bg-yellow-100 px-3 py-1 text-yellow-800">🟡 Medio · 5–9 · planificar</span>
+        <span className="rounded-full bg-amber-100 px-3 py-1 text-amber-800">🟡 Medio · 5–9 · planificar</span>
         <span className="rounded-full bg-orange-100 px-3 py-1 text-orange-800">🟠 Alto · 10–14 · mitigar pronto</span>
         <span className="rounded-full bg-red-100 px-3 py-1 text-red-800">🔴 Crítico · 15–25 · inmediato</span>
       </div>
@@ -180,7 +175,7 @@ export default function Matriz() {
                     <td className="px-3 py-2 text-center text-gray-700">{x.I}</td>
                     <td className="px-3 py-2 text-center font-bold text-gray-800">{x.P * x.I}</td>
                     <td className="px-3 py-2 whitespace-nowrap">
-                      <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${b.chip}`}>{b.emoji} {b.nombre}</span>
+                      <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${b.badge}`}>{b.emoji} {b.nombre}</span>
                     </td>
                   </tr>
                 )
@@ -199,7 +194,7 @@ export default function Matriz() {
         <MapaCalor activo={activo} setActivo={setActivo} />
       </Card>
       {r && (
-        <Card className={`mb-8 ${banda.chip} border-transparent`}>
+        <Card className={`mb-8 ${banda.badge} border-transparent`}>
           <div className="flex flex-wrap items-baseline gap-2 mb-1">
             <span className="font-mono text-sm font-extrabold">{r.id}</span>
             <span className="font-semibold">{r.titulo}</span>

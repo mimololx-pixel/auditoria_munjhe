@@ -1,6 +1,7 @@
 import { AlertTriangle, Flame, Database, ShieldCheck, Boxes } from 'lucide-react'
 import { Card, Contador, H3 } from './ui'
 import { NavContext } from '../nav'
+import { BANDAS } from '../data/severidad'
 
 /*
  * Panel ejecutivo de la portada (solo presentación): resume de un vistazo el
@@ -11,17 +12,17 @@ import { NavContext } from '../nav'
 const STATS = [
   { Icon: Flame, valor: 4, label: 'Riesgos críticos', sub: 'Atención inmediata', color: 'text-red-600', bg: 'bg-red-50' },
   { Icon: AlertTriangle, valor: 2, label: 'Riesgos altos', sub: 'Mitigar pronto', color: 'text-orange-600', bg: 'bg-orange-50' },
-  { Icon: Database, valor: 9.8, dec: 1, label: 'CVSS máximo', sub: 'Inyección de comandos', color: 'text-rose-600', bg: 'bg-rose-50' },
+  { Icon: Database, valor: 9.8, dec: 1, label: 'CVSS máximo', sub: 'Inyección de comandos', color: 'text-red-600', bg: 'bg-red-50' },
   { Icon: Boxes, valor: 12, label: 'Activos analizados', sub: '4 categorías', color: 'text-emerald-600', bg: 'bg-emerald-50' },
   { Icon: ShieldCheck, valor: 13, label: 'Controles definidos', sub: 'OWASP + CIS', color: 'text-indigo-600', bg: 'bg-indigo-50' },
 ]
 
-/* Distribución de los 6 riesgos por banda de prioridad */
-const BANDAS = [
-  { nombre: 'Crítico', n: 4, cls: 'bg-red-500' },
-  { nombre: 'Alto', n: 2, cls: 'bg-orange-400' },
-  { nombre: 'Medio', n: 0, cls: 'bg-yellow-400' },
-  { nombre: 'Bajo', n: 0, cls: 'bg-emerald-400' },
+/* Distribución de los 6 riesgos por banda — colores de la fuente única de severidad */
+const DISTRIBUCION = [
+  { ...BANDAS.critico, n: 4 },
+  { ...BANDAS.alto, n: 2 },
+  { ...BANDAS.medio, n: 0 },
+  { ...BANDAS.bajo, n: 0 },
 ]
 const TOTAL = 6
 
@@ -57,14 +58,14 @@ export default function Dashboard() {
         </div>
         {/* Barra apilada */}
         <div className="flex h-4 w-full overflow-hidden rounded-full bg-gray-100">
-          {BANDAS.filter((b) => b.n > 0).map((b) => (
-            <div key={b.nombre} className={b.cls} style={{ width: `${(b.n / TOTAL) * 100}%` }} title={`${b.nombre}: ${b.n}`} />
+          {DISTRIBUCION.filter((b) => b.n > 0).map((b) => (
+            <div key={b.nombre} className={b.solid} style={{ width: `${(b.n / TOTAL) * 100}%` }} title={`${b.nombre}: ${b.n}`} />
           ))}
         </div>
         <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600">
-          {BANDAS.map((b) => (
+          {DISTRIBUCION.map((b) => (
             <span key={b.nombre} className="inline-flex items-center gap-1.5">
-              <span className={`h-2.5 w-2.5 rounded-full ${b.cls}`} /> {b.nombre}: <strong>{b.n}</strong>
+              <span className={`h-2.5 w-2.5 rounded-full ${b.dot}`} /> {b.nombre}: <strong>{b.n}</strong>
             </span>
           ))}
         </div>

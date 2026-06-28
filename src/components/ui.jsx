@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react'
 import { NavContext, ORDEN } from '../nav'
 import { defDe } from '../data/glosario'
 import { usePref } from '../preferencias'
+import { BANDAS, nivelCVSS } from '../data/severidad'
 
 /* Término con tooltip: muestra la definición del glosario al pasar/tocar */
 export function Termino({ children, def }) {
@@ -260,11 +261,11 @@ export function ComparativaCVSS({ datos }) {
           <div key={label}>
             <div className="mb-1 flex items-center justify-between text-sm">
               <span className="font-medium text-gray-700">{label}</span>
-              <span className="text-gray-500">{n.emoji} {score} · {n.etiqueta}</span>
+              <span className="text-gray-600">{n.banda.emoji} {score} · {n.etiqueta}</span>
             </div>
             <div className="h-3 w-full overflow-hidden rounded-full bg-gray-100">
               <motion.div
-                className={`h-3 rounded-full ${n.barra}`}
+                className={`h-3 rounded-full ${n.banda.solid}`}
                 initial={{ width: 0 }}
                 whileInView={{ width: `${pct}%` }}
                 viewport={{ once: true }}
@@ -344,18 +345,11 @@ export function Code({ children, tone = 'dark' }) {
 }
 
 /*
- * Niveles de severidad en lenguaje simple (strings completos — Tailwind v4 no
- * detecta clases dinámicas, ver CLAUDE.md).
+ * Niveles de severidad en lenguaje simple. Los colores y umbrales vienen de la
+ * fuente única src/data/severidad.js para que coincidan con la matriz y el panel.
  */
-const NIVELES = [
-  { min: 9.0, emoji: '🔴', etiqueta: 'Muy grave', accion: 'corregir de inmediato', badge: 'bg-red-100 text-red-800', barra: 'bg-red-500' },
-  { min: 7.0, emoji: '🟠', etiqueta: 'Grave', accion: 'corregir pronto', badge: 'bg-orange-100 text-orange-800', barra: 'bg-orange-500' },
-  { min: 4.0, emoji: '🟡', etiqueta: 'Moderada', accion: 'planificar corrección', badge: 'bg-yellow-100 text-yellow-800', barra: 'bg-yellow-500' },
-  { min: 0.0, emoji: '🟢', etiqueta: 'Leve', accion: 'mantener bajo observación', badge: 'bg-green-100 text-green-800', barra: 'bg-green-500' },
-]
-
 function nivelDe(score) {
-  return NIVELES.find((n) => score >= n.min) ?? NIVELES[NIVELES.length - 1]
+  return nivelCVSS(score)
 }
 
 /* Medidor visual 0–10 del puntaje CVSS (verde→amarillo→naranja→rojo) */
@@ -363,13 +357,13 @@ export function MedidorCVSS({ score }) {
   const pct = Math.min(100, Math.max(0, (score / 10) * 100))
   return (
     <div className="mb-3 max-w-md">
-      {/* Barra segmentada por severidad */}
+      {/* Barra segmentada por severidad (mismos colores que las bandas) */}
       <div className="relative">
         <div className="flex h-3 rounded-full overflow-hidden">
-          <div className="bg-green-400" style={{ width: '40%' }} />
-          <div className="bg-yellow-400" style={{ width: '30%' }} />
-          <div className="bg-orange-500" style={{ width: '20%' }} />
-          <div className="bg-red-500" style={{ width: '10%' }} />
+          <div className={BANDAS.bajo.solid} style={{ width: '40%' }} />
+          <div className={BANDAS.medio.solid} style={{ width: '30%' }} />
+          <div className={BANDAS.alto.solid} style={{ width: '20%' }} />
+          <div className={BANDAS.critico.solid} style={{ width: '10%' }} />
         </div>
         {/* Marcador del puntaje */}
         <motion.div
@@ -384,7 +378,7 @@ export function MedidorCVSS({ score }) {
       {/* Marcas de los umbrales */}
       <div className="relative h-4 mt-1">
         {[0, 4, 7, 9, 10].map((t) => (
-          <span key={t} className="absolute text-[10px] text-gray-400 -translate-x-1/2" style={{ left: `${t * 10}%` }}>
+          <span key={t} className="absolute text-[10px] text-gray-600 -translate-x-1/2" style={{ left: `${t * 10}%` }}>
             {t}
           </span>
         ))}
@@ -399,13 +393,13 @@ export function Severidad({ score, vector }) {
   return (
     <div className="mb-4">
       <div className="flex flex-wrap items-center gap-3 mb-3">
-        <span className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 font-bold ${n.badge}`}>
-          {n.emoji} {score} · {n.etiqueta}
+        <span className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 font-bold ${n.banda.badge}`}>
+          {n.banda.emoji} {score} · {n.etiqueta}
         </span>
-        <span className="text-gray-600">{n.emoji} {n.etiqueta} — {n.accion}</span>
+        <span className="text-gray-600">{n.banda.emoji} {n.etiqueta} — {n.accion}</span>
       </div>
       <MedidorCVSS score={score} />
-      {vector && <code className="text-xs text-gray-400 break-all">{vector}</code>}
+      {vector && <code className="text-xs text-gray-600 break-all">{vector}</code>}
     </div>
   )
 }

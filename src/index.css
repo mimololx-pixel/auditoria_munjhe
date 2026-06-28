@@ -235,7 +235,7 @@ code, pre {
 /* Excepción del mapa de calor: las celdas mantienen fondo claro saturado
  * (-200/-300), así que su número debe quedar OSCURO (más específico, gana). */
 .dark .bg-orange-300.text-orange-900 { color: #7c2d12; }
-.dark .bg-yellow-200.text-yellow-900 { color: #713f12; }
+.dark .bg-amber-200.text-amber-900 { color: #713f12; }
 .dark .bg-emerald-200.text-emerald-900 { color: #064e3b; }
 
 /* ─── Impresión / PDF ─────────────────────────────────────────────────────
