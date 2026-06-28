@@ -449,15 +449,15 @@ export function Demo({ etiquetaCampo, normal, ataque }) {
         </div>
       </div>
 
-      <label className="mb-1 block text-xs text-gray-500">{etiquetaCampo}</label>
+      <label className="mb-1 block text-xs text-gray-700">{etiquetaCampo}</label>
       <div className={`mb-4 break-words rounded-lg border px-3 py-2 font-mono text-sm ${esAtaque ? 'border-red-300 bg-red-50 text-red-800' : 'border-gray-300 bg-white text-gray-800'}`}>
         {datos.entrada}
       </div>
 
-      <p className="mb-1 text-xs text-gray-500">Lo que ejecuta el sistema:</p>
+      <p className="mb-1 text-xs text-gray-700">Lo que ejecuta el sistema:</p>
       <CodeResaltado texto={datos.codigo} resaltar={esAtaque ? ataque.resaltar : null} />
 
-      <p className="mb-1 mt-4 text-xs text-gray-500">Resultado:</p>
+      <p className="mb-1 mt-4 text-xs text-gray-700">Resultado:</p>
       <AnimatePresence mode="wait">
         <motion.div
           key={modo}

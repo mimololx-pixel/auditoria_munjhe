@@ -22,7 +22,7 @@ export default function Glosario() {
 
       {/* Buscador */}
       <div className="relative mb-5">
-        <Search size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+        <Search size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
         <input
           type="text"
           value={q}
@@ -44,7 +44,7 @@ export default function Glosario() {
           ))}
         </div>
       ) : (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-700">
           No se encontraron términos para "<strong>{q}</strong>".
         </p>
       )}

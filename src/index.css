@@ -63,6 +63,18 @@ code, pre {
   font-family: var(--mono);
 }
 
+/* Foco de teclado visible en todos los interactivos (solo al navegar con Tab,
+ * no al hacer clic con el ratón). Cubre sidebar, botones, enlaces e inputs sin
+ * tener que tocar cada componente. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.dark :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: #5eead4; /* teal-300: visible sobre el sidebar oscuro */
+}
+
 /* ─────────────────────────────────────────────────────────────────────────
  * Sistema de diseño "Claro Premium": glass, gradientes y orbes decorativos.
  * Solo presentación; no afecta el contenido evaluable de docs_munjhe/.

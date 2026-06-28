@@ -53,7 +53,7 @@ export default function BuscadorGlobal({ abierto, onClose, secciones }) {
           >
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-white shadow-2xl dark:bg-[#1e252e]">
               <div className="flex items-center gap-2 border-b border-gray-200 px-4">
-                <Search size={18} className="text-gray-400" />
+                <Search size={18} className="text-gray-500" />
                 <input
                   ref={inputRef}
                   value={q}
@@ -61,11 +61,11 @@ export default function BuscadorGlobal({ abierto, onClose, secciones }) {
                   placeholder="Buscar secciones o términos…"
                   className="w-full bg-transparent py-3.5 text-sm text-gray-800 outline-none"
                 />
-                <kbd className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-500">Esc</kbd>
+                <kbd className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] text-gray-700">Esc</kbd>
               </div>
               <ul className="max-h-80 overflow-y-auto py-2">
                 {resultados.length === 0 && (
-                  <li className="px-4 py-6 text-center text-sm text-gray-400">Sin resultados para "{q}"</li>
+                  <li className="px-4 py-6 text-center text-sm text-gray-600">Sin resultados para "{q}"</li>
                 )}
                 {resultados.map((r, i) => (
                   <li key={`${r.tipo}-${r.label}-${i}`}>
@@ -76,7 +76,7 @@ export default function BuscadorGlobal({ abierto, onClose, secciones }) {
                       <span className="rounded-md bg-teal-50 px-2 py-0.5 text-[10px] font-semibold text-teal-700">{r.tipo}</span>
                       <span className="min-w-0 flex-1">
                         <span className="block text-sm font-medium text-gray-800">{r.label}</span>
-                        {r.sub && <span className="block truncate text-xs text-gray-500">{r.sub}</span>}
+                        {r.sub && <span className="block truncate text-xs text-gray-600">{r.sub}</span>}
                       </span>
                       <CornerDownLeft size={14} className="text-gray-300" />
                     </button>

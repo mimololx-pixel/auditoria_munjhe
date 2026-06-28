@@ -36,13 +36,13 @@ export default function IndiceLateral({ activa }) {
   if (items.length < 2) return null
   return (
     <nav className="fixed right-6 top-1/2 z-20 hidden -translate-y-1/2 xl:block" aria-label="Índice de la sección">
-      <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-gray-400">En esta página</p>
+      <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-gray-600">En esta página</p>
       <ul className="space-y-1.5 border-l border-gray-200 pl-3">
         {items.map((it) => (
           <li key={it.id}>
             <button
               onClick={() => document.getElementById(it.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              className={`block max-w-[12rem] truncate text-left text-xs transition ${actual === it.id ? 'font-semibold text-indigo-600' : 'text-gray-500 hover:text-gray-800'}`}
+              className={`block max-w-[12rem] truncate text-left text-xs transition ${actual === it.id ? 'font-semibold text-indigo-600' : 'text-gray-700 hover:text-gray-900'}`}
             >
               {it.text}
             </button>
