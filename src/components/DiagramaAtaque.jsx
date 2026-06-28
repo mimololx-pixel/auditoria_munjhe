@@ -20,21 +20,28 @@ export default function DiagramaAtaque({ titulo = 'Cómo ocurre, paso a paso', p
   const [activo, setActivo] = useState(0)
   const anillo = ANILLO[color] ?? ANILLO.red
   const reduce = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const tieneHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches
 
   useEffect(() => {
-    // Avanza siempre (también con prefers-reduced-motion); más lento para poder leer.
+    // Con mouse manda el hover; el avance automático solo en táctil (sin hover).
+    if (tieneHover) return
     const id = setInterval(() => setActivo((a) => (a + 1) % pasos.length), 4000)
     return () => clearInterval(id)
-  }, [pasos.length])
+  }, [pasos.length, tieneHover])
 
   return (
     <Card className="mb-8" reveal={false}>
-      <p className="mb-4 text-sm font-semibold text-gray-700">🎬 {titulo}</p>
+      <p className="mb-4 text-sm font-semibold text-gray-700">
+        🎬 {titulo}
+        {tieneHover && <span className="font-normal text-gray-400"> · pasa el cursor por cada paso</span>}
+      </p>
       <div className="flex items-stretch gap-1 overflow-x-auto pb-2">
         {pasos.map((p, i) => (
           <div key={i} className="flex items-center">
             <button
               onClick={() => setActivo(i)}
+              onMouseEnter={() => setActivo(i)}
+              onFocus={() => setActivo(i)}
               className="flex w-24 shrink-0 flex-col items-center gap-2 text-center"
             >
               <motion.span
