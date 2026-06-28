@@ -273,7 +273,7 @@ function App() {
       <BuscadorGlobal abierto={buscador} onClose={() => setBuscador(false)} secciones={items} />
       <Tour abierto={tour} onClose={cerrarTour} />
       {/* Sidebar desktop */}
-      <aside className="hidden md:flex flex-col w-64 sidebar-grad border-r border-white/10 shrink-0">
+      <aside className="hidden md:flex flex-col w-64 sidebar-grad border-r border-white/10 shrink-0 relative z-20">
         <SidebarHeader />
         <nav className="flex-1 overflow-y-auto py-2 scroll-sutil">
           <NavItems activa={activa} setActiva={setActiva} />

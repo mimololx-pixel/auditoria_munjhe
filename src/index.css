@@ -98,7 +98,7 @@ code, pre {
 
 /* Tarjeta "glass": vidrio esmerilado sobre el fondo claro */
 .glass {
-  background: rgba(255, 255, 255, .62);
+  background: rgba(255, 255, 255, .85);
   backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, .65);
@@ -114,14 +114,14 @@ code, pre {
   pointer-events: none;
   overflow: hidden;
   /* Colores de la rejilla de hexágonos */
-  --hex-line: rgba(22, 186, 197, .22);
-  --hex-fill: rgba(88, 99, 248, .04);
-  --hex-glow: rgba(22, 186, 197, .40);
+  --hex-line: rgba(22, 186, 197, .18);
+  --hex-fill: rgba(88, 99, 248, .035);
+  --hex-cell: rgba(22, 186, 197, .16);  /* relleno de celdas cerca del cursor */
 }
 .dark .orbes {
-  --hex-line: rgba(94, 234, 212, .16);
-  --hex-fill: rgba(88, 99, 248, .07);
-  --hex-glow: rgba(34, 211, 238, .50);
+  --hex-line: rgba(94, 234, 212, .14);
+  --hex-fill: rgba(88, 99, 248, .06);
+  --hex-cell: rgba(34, 211, 238, .22);
 }
 /* Rejilla de hexágonos: color por variable (var() solo resuelve en CSS, no en
    atributos de presentación SVG) + latido suave (se congela con reduced-motion). */
@@ -179,7 +179,7 @@ code, pre {
 .dark { color: #e5e7eb; color-scheme: dark; }
 
 .dark .glass {
-  background: rgba(30, 37, 47, .62);
+  background: rgba(30, 37, 47, .90);
   border-color: rgba(255, 255, 255, .08);
   box-shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -10px rgba(0,0,0,.5);
 }

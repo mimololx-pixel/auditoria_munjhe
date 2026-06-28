@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react'
  */
 
 const R = 40            // radio del hexágono (centro → vértice)
-const GLOW = 175        // radio del halo del cursor
+const GLOW = 120        // radio del área que rellena hexágonos cerca del cursor
 
 /* Vértices de un hexágono pointy-top centrado en (cx, cy). */
 function hexPuntos(cx, cy) {
@@ -85,8 +85,10 @@ export default function FondoHex() {
         <g id="hexes">{puntos}</g>
         <radialGradient ref={gradRef} id="hexSpot" gradientUnits="userSpaceOnUse"
           cx={size.w / 2} cy={size.h / 3} r={GLOW}>
-          <stop offset="0%" style={{ stopColor: 'var(--hex-glow)' }} stopOpacity="1" />
-          <stop offset="100%" style={{ stopColor: 'var(--hex-glow)' }} stopOpacity="0" />
+          {/* Perfil casi plano: relleno nítido de celdas (sin halo difuso) */}
+          <stop offset="0%" style={{ stopColor: 'var(--hex-cell)' }} stopOpacity="1" />
+          <stop offset="70%" style={{ stopColor: 'var(--hex-cell)' }} stopOpacity="1" />
+          <stop offset="100%" style={{ stopColor: 'var(--hex-cell)' }} stopOpacity="0" />
         </radialGradient>
         <mask id="hexMask">
           <use href="#hexes" fill="#fff" stroke="#fff" strokeWidth="2" />
