@@ -144,6 +144,28 @@ code, pre {
   border-radius: 9999px;
 }
 
+/* ─── Animaciones de las caricaturas (mascota Bruno + escena de portada) ──────
+ * Sutiles y en bucle; se desactivan con prefers-reduced-motion (regla de abajo).
+ * Para transformar grupos SVG por CSS fijamos transform-box: fill-box.
+ * ───────────────────────────────────────────────────────────────────────── */
+.mascota-saluda, .mascota-parpadea, .parpadeo-lento, .destello { transform-box: fill-box; }
+
+.mascota-flota { animation: mascotaFlota 3.2s ease-in-out infinite; }
+@keyframes mascotaFlota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+.mascota-saluda { transform-origin: 25px 92px; animation: mascotaSaluda 2.2s ease-in-out infinite; }
+@keyframes mascotaSaluda { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(20deg); } }
+
+.mascota-parpadea, .parpadeo-lento { animation: mascotaParpadea 4.5s ease-in-out infinite; }
+@keyframes mascotaParpadea { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+
+.nube-1 { animation: nubeFlota 9s ease-in-out infinite; }
+.nube-2 { animation: nubeFlota 11s ease-in-out infinite reverse; }
+@keyframes nubeFlota { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(16px); } }
+
+.destello { animation: destelloPulso 2.8s ease-in-out infinite; }
+@keyframes destelloPulso { 0%, 100% { transform: scale(0.85); opacity: 0.55; } 50% { transform: scale(1.1); opacity: 1; } }
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
