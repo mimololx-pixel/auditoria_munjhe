@@ -19,6 +19,7 @@ export const ORDEN = [
   { id: 'matriz', label: 'Matriz de riesgo' },
   { id: 'controles', label: 'Controles' },
   { id: 'recuperacion', label: 'Recuperación' },
+  { id: 'reto', label: 'Pon a prueba' },
   { id: 'prompts', label: 'Bitácora de IA' },
   { id: 'glosario', label: 'Glosario' },
 ]

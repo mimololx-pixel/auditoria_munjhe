@@ -1,8 +1,16 @@
-import { MessageSquareCode } from 'lucide-react'
-import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
+import { MessageSquareCode, User, Link, Globe, Cookie } from 'lucide-react'
+import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion, Tecnico } from './ui'
 import { ArteXSS } from './ilustraciones'
+import DiagramaAtaque from './DiagramaAtaque'
 import xssImg from '../../docs_munjhe/img_munjhe/xss_munjhe.png'
 import xssPopupImg from '../../docs_munjhe/img_munjhe/xss_popup_munjhe.png'
+
+const PASOS = [
+  { Icon: User, label: 'Atacante', detalle: 'Prepara un texto con un <script> (un pequeño programa) en vez de un dato normal.' },
+  { Icon: Link, label: 'Enlace trampa', detalle: 'Hace que ese script quede en una página del portal y comparte el enlace con la víctima.' },
+  { Icon: Globe, label: 'Navegador de la víctima', detalle: 'Al abrir el enlace, el navegador del huésped ejecuta el script como si fuera del sitio real.' },
+  { Icon: Cookie, label: 'Sesión robada', detalle: 'El script roba la cookie de sesión: el atacante entra a la cuenta del huésped (reservas, datos, pagos).' },
+]
 
 /* "Ventana del navegador" simulada para mostrar texto vs. código ejecutado */
 function Navegador({ children, popup }) {
@@ -108,6 +116,9 @@ export default function XSS() {
         }}
       />
 
+      <DiagramaAtaque color="amber" pasos={PASOS} />
+
+      <Tecnico>
       <H3>Por qué funciona</H3>
       <p className="text-gray-600 mb-3">
         La aplicación inserta la entrada dentro del HTML <strong>sin sanitizarla</strong>:
@@ -121,9 +132,11 @@ export default function XSS() {
         El navegador <strong>no distingue</strong> la entrada del usuario del código propio de la
         página. Tipos: reflejado (el de DVWA), almacenado y basado en DOM.
       </p>
+      </Tecnico>
 
       <H3>Gravedad</H3>
       <Severidad score={6.1} vector="CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N" />
+      <Tecnico>
       <Card className="mb-8 p-0 overflow-hidden">
         <table className="w-full text-sm">
           <tbody className="divide-y divide-gray-100">
@@ -142,6 +155,7 @@ export default function XSS() {
           </tbody>
         </table>
       </Card>
+      </Tecnico>
 
       <H3>Impacto para Hotel Costa Brava</H3>
       <ul className="list-disc list-inside text-gray-600 space-y-1 mb-8">

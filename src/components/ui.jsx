@@ -2,6 +2,46 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react'
 import { NavContext, ORDEN } from '../nav'
+import { defDe } from '../data/glosario'
+import { usePref } from '../preferencias'
+
+/* Término con tooltip: muestra la definición del glosario al pasar/tocar */
+export function Termino({ children, def }) {
+  const definicion = def ?? defDe(typeof children === 'string' ? children : '')
+  const [abierto, setAbierto] = useState(false)
+  if (!definicion) return children
+  return (
+    <span className="relative inline-block">
+      <button
+        type="button"
+        onClick={() => setAbierto((o) => !o)}
+        onMouseEnter={() => setAbierto(true)}
+        onMouseLeave={() => setAbierto(false)}
+        className="cursor-help border-b border-dashed border-teal-500 font-medium text-teal-700 dark:text-teal-300"
+      >
+        {children}
+      </button>
+      <AnimatePresence>
+        {abierto && (
+          <motion.span
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="absolute bottom-full left-1/2 z-40 mb-1.5 w-56 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-xs font-normal leading-snug text-white shadow-xl"
+          >
+            {definicion}
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
+  )
+}
+
+/* Bloque que solo se muestra en "modo técnico" (oculto en modo simple) */
+export function Tecnico({ children }) {
+  const { tecnico } = usePref()
+  return tecnico ? children : null
+}
 
 /*
  * Módulo de UI compartido — tema claro y amigable.

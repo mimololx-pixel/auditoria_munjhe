@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { QRCodeSVG } from 'qrcode.react'
+import { usePref } from './preferencias'
 import IndiceLateral from './components/IndiceLateral'
 import Inicio from './components/Inicio'
 import Resumen from './components/Resumen'
@@ -11,6 +12,7 @@ import Activos from './components/Activos'
 import Matriz from './components/Matriz'
 import Controles from './components/Controles'
 import Recuperacion from './components/Recuperacion'
+import QuizFinal from './components/QuizFinal'
 import Prompts from './components/Prompts'
 import Glosario from './components/Glosario'
 import { ProgresoLectura, BotonSubir } from './components/ui'
@@ -44,6 +46,7 @@ const secciones = [
   { id: 'recuperacion', label: 'Recuperación',      componente: Recuperacion, color: 'blue'    },
 
   { grupo: 'Recursos' },
+  { id: 'reto',     label: 'Pon a prueba',   componente: QuizFinal, color: 'teal', extra: true },
   { id: 'prompts',  label: 'Bitácora de IA', componente: Prompts,  color: 'gray' },
   { id: 'glosario', label: 'Glosario',       componente: Glosario, color: 'teal', extra: true },
 ]
@@ -128,8 +131,29 @@ function IconGithub({ size = 16 }) {
 }
 
 function SidebarExtras() {
+  const { tecnico, setTecnico } = usePref()
   return (
     <div className="px-4 pb-3 pt-2 space-y-3">
+      <div>
+        <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-white/40">Modo de lectura</p>
+        <div className="inline-flex w-full rounded-lg bg-white/10 p-0.5 text-sm">
+          <button
+            onClick={() => setTecnico(false)}
+            className={`flex-1 rounded-md px-2 py-1.5 transition ${!tecnico ? 'bg-white font-semibold text-indigo-700' : 'text-white/70 hover:text-white'}`}
+          >
+            Simple
+          </button>
+          <button
+            onClick={() => setTecnico(true)}
+            className={`flex-1 rounded-md px-2 py-1.5 transition ${tecnico ? 'bg-white font-semibold text-indigo-700' : 'text-white/70 hover:text-white'}`}
+          >
+            Técnico
+          </button>
+        </div>
+        <p className="mt-1 text-[11px] text-white/40">
+          {tecnico ? 'Mostrando todo el detalle técnico.' : 'Mostrando solo lo esencial.'}
+        </p>
+      </div>
       <a
         href={REPO_URL}
         target="_blank"

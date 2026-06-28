@@ -1,7 +1,15 @@
-import { Database } from 'lucide-react'
-import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
+import { Database, User, Keyboard, FileWarning } from 'lucide-react'
+import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion, Tecnico, Termino } from './ui'
 import { ArteSQL } from './ilustraciones'
+import DiagramaAtaque from './DiagramaAtaque'
 import sqliImg from '../../docs_munjhe/img_munjhe/sqli_munjhe.png'
+
+const PASOS = [
+  { Icon: User, label: 'Atacante', detalle: 'Una persona malintencionada abre el formulario público del portal (login o búsqueda).' },
+  { Icon: Keyboard, label: 'Escribe el payload', detalle: "En vez de un dato normal, escribe ' OR '1'='1, un texto que cambia la pregunta a la base de datos." },
+  { Icon: Database, label: 'Base de datos', detalle: 'La base recibe una condición siempre verdadera y, en lugar de un registro, devuelve la tabla completa.' },
+  { Icon: FileWarning, label: 'Datos expuestos', detalle: 'Se filtran los datos de todos los huéspedes: nombres, documentos, contactos y, si están ahí, pagos.' },
+]
 
 /* Usuarios que devuelve DVWA (presenta el resultado del .md, no añade datos evaluables) */
 const USUARIOS = ['admin', 'Gordon Brown', 'Hack Me', 'Pablo Picasso', 'Bob Smith']
@@ -89,6 +97,9 @@ export default function InyeccionSQL() {
         }}
       />
 
+      <DiagramaAtaque color="red" pasos={PASOS} />
+
+      <Tecnico>
       <H3>Por qué funciona</H3>
       <p className="text-gray-600 mb-3">
         El portal <strong>construye la consulta pegando directamente</strong> lo que escribe el usuario:
@@ -103,9 +114,14 @@ SELECT nombre FROM users WHERE id = '' OR '1'='1';  -- siempre verdadero`}</Code
         <strong> siempre verdadera</strong>, así que la base devuelve la tabla completa. La causa
         de fondo: la aplicación <strong>no separa los datos del usuario de sus instrucciones</strong>.
       </p>
+      </Tecnico>
 
       <H3>Gravedad</H3>
+      <p className="text-gray-600 mb-3">
+        Medida con <Termino>CVSS</Termino>, la escala internacional del 0 al 10:
+      </p>
       <Severidad score={7.5} vector="CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N" />
+      <Tecnico>
       <Card className="mb-3 p-0 overflow-hidden">
         <table className="w-full text-sm">
           <tbody className="divide-y divide-gray-100">
@@ -128,6 +144,7 @@ SELECT nombre FROM users WHERE id = '' OR '1'='1';  -- siempre verdadero`}</Code
         ⚠️ El ataque demostrado solo lee datos. La misma falla suele permitir modificar o borrar
         registros, elevando el puntaje a <strong>9.8 — Crítico</strong>. 7.5 es el piso, no el techo.
       </p>
+      </Tecnico>
 
       <H3>Impacto para Hotel Costa Brava</H3>
       <ul className="list-disc list-inside text-gray-600 space-y-1 mb-8">

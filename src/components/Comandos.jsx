@@ -1,7 +1,15 @@
-import { TerminalSquare } from 'lucide-react'
-import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion } from './ui'
+import { TerminalSquare, User, Keyboard, Server, ShieldOff } from 'lucide-react'
+import { Page, SectionHero, NavPie, Card, H3, Code, Severidad, Demo, Autocomprobacion, Tecnico } from './ui'
 import { ArteComandos } from './ilustraciones'
+import DiagramaAtaque from './DiagramaAtaque'
 import comandosImg from '../../docs_munjhe/img_munjhe/comandos_munjhe.png'
+
+const PASOS = [
+  { Icon: User, label: 'Atacante', detalle: 'Usa una función del portal que ejecuta herramientas del servidor (por ejemplo, un ping).' },
+  { Icon: Keyboard, label: 'Encadena un comando', detalle: 'Tras la IP escribe 127.0.0.1; cat /etc/passwd: el ";" añade una segunda orden.' },
+  { Icon: Server, label: 'Servidor', detalle: 'El servidor ejecuta ambas órdenes, porque recibe la entrada directamente del usuario.' },
+  { Icon: ShieldOff, label: 'Control total', detalle: 'El atacante puede leer cualquier archivo, borrar o cifrar datos e instalar software: control del sistema.' },
+]
 
 /* Terminal simulada para mostrar la salida del servidor */
 function Terminal({ children }) {
@@ -97,6 +105,9 @@ export default function Comandos() {
         }}
       />
 
+      <DiagramaAtaque color="purple" pasos={PASOS} />
+
+      <Tecnico>
       <H3>Por qué funciona</H3>
       <p className="text-gray-600 mb-3">
         El portal arma una orden para el sistema operativo <strong>pegando</strong> la entrada:
@@ -111,9 +122,11 @@ ping -c 4 127.0.0.1; cat /etc/passwd  # el ; encadena DOS comandos`}</Code></div
         entrega la entrada <strong>directamente al sistema operativo</strong>, el servidor ejecuta
         ambos.
       </p>
+      </Tecnico>
 
       <H3>Gravedad</H3>
       <Severidad score={9.8} vector="CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H" />
+      <Tecnico>
       <Card className="mb-8 p-0 overflow-hidden">
         <table className="w-full text-sm">
           <tbody className="divide-y divide-gray-100">
@@ -132,6 +145,7 @@ ping -c 4 127.0.0.1; cat /etc/passwd  # el ; encadena DOS comandos`}</Code></div
           </tbody>
         </table>
       </Card>
+      </Tecnico>
 
       <H3>Impacto para Hotel Costa Brava</H3>
       <ul className="list-disc list-inside text-gray-600 space-y-1 mb-8">
