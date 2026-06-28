@@ -22,10 +22,10 @@ export default function DiagramaAtaque({ titulo = 'Cómo ocurre, paso a paso', p
   const reduce = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   useEffect(() => {
-    if (reduce) return
-    const id = setInterval(() => setActivo((a) => (a + 1) % pasos.length), 1700)
+    // Avanza siempre (también con prefers-reduced-motion); más lento para poder leer.
+    const id = setInterval(() => setActivo((a) => (a + 1) % pasos.length), 4000)
     return () => clearInterval(id)
-  }, [pasos.length, reduce])
+  }, [pasos.length])
 
   return (
     <Card className="mb-8" reveal={false}>
@@ -39,7 +39,7 @@ export default function DiagramaAtaque({ titulo = 'Cómo ocurre, paso a paso', p
             >
               <motion.span
                 animate={{ scale: activo === i ? 1.12 : 1, opacity: activo === i ? 1 : 0.5 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: reduce ? 0 : 0.3 }}
                 className={`flex h-14 w-14 items-center justify-center rounded-2xl ring-2 ${activo === i ? anillo : 'bg-gray-100 text-gray-400 ring-transparent'}`}
               >
                 <p.Icon size={26} />
@@ -56,8 +56,9 @@ export default function DiagramaAtaque({ titulo = 'Cómo ocurre, paso a paso', p
       </div>
       <motion.p
         key={activo}
-        initial={{ opacity: 0, y: 6 }}
+        initial={{ opacity: 0, y: reduce ? 0 : 6 }}
         animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduce ? 0 : 0.3 }}
         className="mt-3 rounded-lg bg-gray-50 px-3 py-2 text-sm text-gray-700"
       >
         <strong>{activo + 1}. {pasos[activo].label}:</strong> {pasos[activo].detalle}

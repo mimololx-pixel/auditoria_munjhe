@@ -105,72 +105,34 @@ code, pre {
   box-shadow: var(--shadow-soft);
 }
 
-/* Capa de orbes decorativos de fondo (difusos, sin interacción).
- * Además de los dos orbes (::before/::after), la capa lleva un degradado muy
- * tenue que "respira": desplaza su posición lentamente para dar vida al fondo
- * sin distraer ni afectar la legibilidad. Se congela con prefers-reduced-motion. */
+/* Capa de fondo: rejilla de hexágonos (componente FondoHex). Conserva solo el
+ * posicionamiento fijo; los colores van por variables (claro/oscuro). */
 .orbes {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  /* Capa 1: halo de luz que sigue al cursor (--mx/--my las actualiza App.jsx).
-     Capa 2: degradado tenue que "respira". */
-  background:
-    radial-gradient(circle 460px at var(--mx, 50%) var(--my, 30%),
-      rgba(22, 186, 197, .20), transparent 70%),
-    linear-gradient(120deg,
-      rgba(22, 186, 197, .10) 0%, rgba(95, 191, 249, .07) 35%,
-      rgba(88, 99, 248, .10) 70%, rgba(245, 243, 248, 0) 100%);
-  background-size: auto, 200% 200%;
-  animation: gradienteRespira 28s ease-in-out infinite;
+  /* Colores de la rejilla de hexágonos */
+  --hex-line: rgba(22, 186, 197, .22);
+  --hex-fill: rgba(88, 99, 248, .04);
+  --hex-glow: rgba(22, 186, 197, .40);
 }
-/* En oscuro el halo se ve más por el fondo casi negro: súbele un punto */
 .dark .orbes {
-  background:
-    radial-gradient(circle 460px at var(--mx, 50%) var(--my, 30%),
-      rgba(34, 211, 238, .26), transparent 70%),
-    linear-gradient(120deg,
-      rgba(22, 186, 197, .10) 0%, rgba(56, 63, 120, .18) 40%,
-      rgba(88, 99, 248, .12) 75%, rgba(11, 18, 32, 0) 100%);
-  background-size: auto, 200% 200%;
+  --hex-line: rgba(94, 234, 212, .16);
+  --hex-fill: rgba(88, 99, 248, .07);
+  --hex-glow: rgba(34, 211, 238, .50);
 }
-@keyframes gradienteRespira {
-  0%, 100% { background-position: 0% 50%; }
-  50%      { background-position: 100% 50%; }
+/* Rejilla de hexágonos: color por variable (var() solo resuelve en CSS, no en
+   atributos de presentación SVG) + latido suave (se congela con reduced-motion). */
+.hex-svg .grid {
+  fill: var(--hex-fill);
+  stroke: var(--hex-line);
+  animation: hexLatido 6s ease-in-out infinite;
 }
-.orbes::before,
-.orbes::after {
-  content: "";
-  position: absolute;
-  width: 42rem;
-  height: 42rem;
-  border-radius: 9999px;
-  filter: blur(80px);
-  opacity: .7;
-  will-change: transform;
-}
-.orbes::before {
-  top: -8rem;
-  right: -6rem;
-  background: radial-gradient(circle, rgba(22, 186, 197, .55), transparent 65%);
-  animation: orbeDeriva1 22s ease-in-out infinite;
-}
-.orbes::after {
-  bottom: -10rem;
-  left: -6rem;
-  background: radial-gradient(circle, rgba(88, 99, 248, .45), transparent 65%);
-  animation: orbeDeriva2 28s ease-in-out infinite;
-}
-/* Deriva autónoma de los orbes: flotan lento aunque no se mueva el mouse */
-@keyframes orbeDeriva1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%      { transform: translate(-3rem, 2rem) scale(1.12); }
-}
-@keyframes orbeDeriva2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%      { transform: translate(3rem, -2.5rem) scale(1.1); }
+@keyframes hexLatido {
+  0%, 100% { opacity: .7; }
+  50%      { opacity: 1; }
 }
 
 /* Gradiente del sidebar */
@@ -221,9 +183,6 @@ code, pre {
   border-color: rgba(255, 255, 255, .08);
   box-shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px -10px rgba(0,0,0,.5);
 }
-.dark .orbes::before { opacity: .6; }
-.dark .orbes::after { opacity: .6; }
-
 /* Texto neutro */
 .dark .text-gray-800 { color: #f1f5f9; }
 .dark .text-gray-700 { color: #e2e8f0; }

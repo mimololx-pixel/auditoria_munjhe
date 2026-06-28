@@ -4,6 +4,7 @@ import { Moon, Sun, Search, HelpCircle, Printer } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'
 import { usePref } from './preferencias'
 import IndiceLateral from './components/IndiceLateral'
+import FondoHex from './components/FondoHex'
 import BuscadorGlobal from './components/BuscadorGlobal'
 import Tour from './components/Tour'
 import Inicio from './components/Inicio'
@@ -230,25 +231,6 @@ function App() {
     NavContext.go = (id) => { setActiva(id); setMenuAbierto(false) }
   }, [])
 
-  /* Fondo interactivo: un halo de luz sigue al cursor. Solo en dispositivos con
-     mouse. NO se desactiva con prefers-reduced-motion a propósito: es movimiento
-     que provoca el propio usuario al mover el ratón (no animación autónoma). */
-  useEffect(() => {
-    if (!window.matchMedia('(pointer: fine)').matches) return
-    let raf = 0
-    const onMove = (e) => {
-      if (raf) return
-      raf = requestAnimationFrame(() => {
-        raf = 0
-        const root = document.documentElement
-        root.style.setProperty('--mx', `${e.clientX}px`)
-        root.style.setProperty('--my', `${e.clientY}px`)
-      })
-    }
-    window.addEventListener('pointermove', onMove)
-    return () => { window.removeEventListener('pointermove', onMove); if (raf) cancelAnimationFrame(raf) }
-  }, [])
-
   /* Atajo de teclado Cmd/Ctrl+K para el buscador global */
   useEffect(() => {
     const onKey = (e) => {
@@ -346,7 +328,7 @@ function App() {
         </AnimatePresence>
 
         <main ref={mainRef} className="relative flex-1 overflow-y-auto">
-          <div className="orbes" aria-hidden="true" />
+          <FondoHex />
           <IndiceLateral activa={activa} />
           {Componente ? <Componente /> : <Placeholder label={seccionActual?.label} />}
         </main>
