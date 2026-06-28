@@ -230,6 +230,27 @@ function App() {
     NavContext.go = (id) => { setActiva(id); setMenuAbierto(false) }
   }, [])
 
+  /* Parallax del fondo: los orbes (.orbes) siguen suavemente al cursor. Solo en
+     dispositivos con mouse y si no se pidió reducir el movimiento. */
+  useEffect(() => {
+    if (!window.matchMedia('(pointer: fine)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let raf = 0
+    const onMove = (e) => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        const x = (e.clientX / window.innerWidth - 0.5)
+        const y = (e.clientY / window.innerHeight - 0.5)
+        const root = document.documentElement
+        root.style.setProperty('--orb-x', x.toFixed(3))
+        root.style.setProperty('--orb-y', y.toFixed(3))
+      })
+    }
+    window.addEventListener('pointermove', onMove)
+    return () => { window.removeEventListener('pointermove', onMove); if (raf) cancelAnimationFrame(raf) }
+  }, [])
+
   /* Atajo de teclado Cmd/Ctrl+K para el buscador global */
   useEffect(() => {
     const onKey = (e) => {

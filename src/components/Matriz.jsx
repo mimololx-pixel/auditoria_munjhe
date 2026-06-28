@@ -77,7 +77,7 @@ function Fragmento({ I, cols, activo, setActivo }) {
                   <button
                     key={r.id}
                     onClick={() => setActivo(r.id)}
-                    className={`rounded bg-white/90 px-1.5 py-0.5 text-[11px] font-extrabold text-gray-800 shadow-sm transition hover:scale-110 ${activo === r.id ? 'ring-2 ring-gray-800' : ''}`}
+                    className={`rounded bg-white/90 px-1.5 py-0.5 text-[11px] font-extrabold text-gray-900 shadow-sm transition hover:scale-110 ${activo === r.id ? 'ring-2 ring-gray-800' : ''}`}
                   >
                     {r.id}
                   </button>
