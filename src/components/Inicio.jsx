@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Page, Card, ComparativaCVSS, H3 } from './ui'
 import { NavContext } from '../nav'
 import { HeroHotelSeguro } from './ilustraciones'
+import Dashboard from './Dashboard'
 
 /* Detalle 3D (three.js) cargado de forma diferida: no entra en el bundle del resto de secciones */
 const Hero3D = lazy(() => import('./Hero3D'))
@@ -68,6 +69,9 @@ export default function Inicio() {
           </Suspense>
         </div>
       </div>
+
+      {/* Panel ejecutivo (dashboard) */}
+      <Dashboard />
 
       {/* Cómo leer esto */}
       <Card className="mb-8 bg-teal-50 border-teal-200">

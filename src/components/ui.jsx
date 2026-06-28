@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react'
 import { NavContext, ORDEN } from '../nav'
@@ -43,6 +43,34 @@ export function Reveal({ children, delay = 0, className = '' }) {
       {children}
     </motion.div>
   )
+}
+
+/* Número que cuenta de 0 al valor cuando entra en pantalla */
+export function Contador({ to, decimals = 0, duration = 1.2, suffix = '', prefix = '' }) {
+  const [val, setVal] = useState(0)
+  const ref = useRef(null)
+  const yaInicio = useRef(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver((entradas) => {
+      if (entradas[0].isIntersecting && !yaInicio.current) {
+        yaInicio.current = true
+        const inicio = performance.now()
+        const tick = (ahora) => {
+          const p = Math.min(1, (ahora - inicio) / (duration * 1000))
+          const eased = 1 - Math.pow(1 - p, 3)
+          setVal(to * eased)
+          if (p < 1) requestAnimationFrame(tick)
+          else setVal(to)
+        }
+        requestAnimationFrame(tick)
+      }
+    }, { threshold: 0.4 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [to, duration])
+  return <span ref={ref}>{prefix}{val.toFixed(decimals)}{suffix}</span>
 }
 
 /* Botón CTA con gradiente cian→índigo */
